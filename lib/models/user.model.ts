@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   bio: String,
-  chirpy: [
+  chirps: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chirp",

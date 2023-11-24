@@ -34,7 +34,6 @@ const circleSchema = new mongoose.Schema({
   ],
 });
 
-const Circle =
-  mongoose.models.Circle || mongoose.model("Circle", circleSchema);
+const Circle = mongoose.models.Circle || mongoose.model("Circle", circleSchema);
 
 export default Circle;

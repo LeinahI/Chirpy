@@ -25,14 +25,11 @@ const chirpSchema = new mongoose.Schema({
     /* Replies and recusion will occur */
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Circle",
+      ref: "Chirp",
     },
-  ], 
+  ],
 });
 
-const Chirp =
-  mongoose.models.Chirp ||
-  mongoose.model("Chirp", chirpSchema);
+const Chirp = mongoose.models.Chirp || mongoose.model("Chirp", chirpSchema);
 
 export default Chirp;
-

@@ -89,20 +89,20 @@ export async function fetchChirpById(chirpId: string) {
         select: "_id id name image",
       })
       .populate({
-        path: "children",
+        path: "children", // Populate the children field
         populate: [
           {
-            path: "author",
+            path: "author", // Populate the author field within children
             model: User,
-            select: "_id id name parentId image",
+            select: "_id id name parentId image", // Select only _id and username fields of the author
           },
           {
-            path: "children",
-            model: Chirp,
+            path: "children", // Populate the children field within children
+            model: Chirp, // The model of the nested children (assuming it's the same "Thread" model)
             populate: {
-              path: "author",
+              path: "author", // Populate the author field within nested children
               model: User,
-              select: "_id id name parentId image",
+              select: "_id id name parentId image", // Select only _id and username fields of the author
             },
           },
         ],
