@@ -21,7 +21,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${raleway.className} bg-dark-1`}>
-          <span className="">{children}</span>
+          <div className="w-full flex justify-center items-center min-h-screen">
+            {children}
+          </div>
         </body>
       </html>
     </ClerkProvider>

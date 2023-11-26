@@ -15,6 +15,7 @@ async function Page({ params }: { params: { id: string } }) {
   const userInfo = await fetchUser(params.id);
 
   if (!userInfo?.onboarded) redirect("/onboarding");
+  
   return (
     <section>
       <ProfileHeader
@@ -27,7 +28,7 @@ async function Page({ params }: { params: { id: string } }) {
       />
 
       <div className="mt-9">
-        <Tabs defaultValue="chirpy" className="w-full">
+        <Tabs defaultValue="chirps" className="w-full">
           <TabsList className="tab">
             {profileTabs.map((tab) => (
               <TabsTrigger key={tab.label} value={tab.value} className="tab">
