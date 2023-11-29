@@ -1,18 +1,17 @@
 "use server";
 
-import { connectToDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import { connectToDB } from "../mongoose";
 import Chirp from "../models/chirp.model";
 import User from "../models/user.model";
 import Circle from "../models/circle.model";
-import mongoose, { Schema, Document } from "mongoose";
-
+/* import { Schema } from "mongoose";
 // Define the schema for the Circle model
 const circleSchema = new Schema({
   // Define your fields here
   // For example:
   name: { type: String, required: true },
-});
+}); */
 
 interface Params {
   text: string;
@@ -64,7 +63,7 @@ export async function fetchChirps(pageNumber = 1, pageSize = 20) {
 
   const totalChirpCount = await Chirp.countDocuments({
     parentId: { $in: [null, undefined] },
-  });
+  }).maxTimeMS(15000);
 
   const chirps = await chirpsQuery.exec();
 
