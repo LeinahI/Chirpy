@@ -58,6 +58,6 @@ async function page({ params }: { params: { id: string } }) {
       </div>
     </section>
   );
-};
+}
 
 export default page;

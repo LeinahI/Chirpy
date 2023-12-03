@@ -1,17 +1,52 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+
 import { connectToDB } from "../mongoose";
-import Chirp from "../models/chirp.model";
+
 import User from "../models/user.model";
+import Chirp from "../models/chirp.model";
 import Circle from "../models/circle.model";
-/* import { Schema } from "mongoose";
-// Define the schema for the Circle model
-const circleSchema = new Schema({
-  // Define your fields here
-  // For example:
-  name: { type: String, required: true },
-}); */
+
+export async function fetchChirps(pageNumber = 1, pageSize = 20) {
+  connectToDB();
+
+  // Calculate the number of chirps to skip based on the page number and page size.
+  const skipAmount = (pageNumber - 1) * pageSize;
+
+  // Create a query to fetch the chirps that have no parent (top-level chirps) (a chirps that is not a comment/reply).
+  const chirpsQuery = Chirp.find({ parentId: { $in: [null, undefined] } })
+    .sort({ createdAt: "desc" })
+    .skip(skipAmount)
+    .limit(pageSize)
+    .populate({
+      path: "author",
+      model: User,
+    })
+    .populate({
+      path: "circle",
+      model: Circle,
+    })
+    .populate({
+      path: "children", // Populate the children field
+      populate: {
+        path: "author", // Populate the author field within children
+        model: User,
+        select: "_id name parentId image", // Select only _id and username fields of the author
+      },
+    });
+
+  // Count the total number of top-level chirps (chirps) i.e., chirps that are not comments.
+  const totalChirpsCount = await Chirp.countDocuments({
+    parentId: { $in: [null, undefined] },
+  }); // Get the total count of chirps
+
+  const chirps = await chirpsQuery.exec();
+
+  const isNext = totalChirpsCount > skipAmount + chirps.length;
+
+  return { chirps, isNext };
+}
 
 interface Params {
   text: string;
@@ -21,87 +56,133 @@ interface Params {
 }
 
 export async function createChirp({ text, author, circleId, path }: Params) {
-  connectToDB();
-
   try {
+    connectToDB();
+
+    const circleIdObject = await Circle.findOne({ id: circleId }, { _id: 1 });
+
     const createdChirp = await Chirp.create({
       text,
       author,
-      circle: null,
+      circle: circleIdObject, // Assign circleId if provided, or leave it null for personal account
     });
 
+    // Update User model
     await User.findByIdAndUpdate(author, {
-      $push: { /* Name of Collection */ chirps: createdChirp._id },
+      $push: { chirps: createdChirp._id },
     });
+
+    if (circleIdObject) {
+      // Update Circle model
+      await Circle.findByIdAndUpdate(circleIdObject, {
+        $push: { chirps: createdChirp._id },
+      });
+    }
 
     revalidatePath(path);
-  } catch (err: any) {
-    throw new Error(`Error on creating chirp: ${err.message}`);
+  } catch (error: any) {
+    throw new Error(`Failed to create chirp: ${error.message}`);
   }
 }
 
-export async function fetchChirps(pageNumber = 1, pageSize = 20) {
-  connectToDB();
+async function fetchAllChildChirps(chirpId: string): Promise<any[]> {
+  const childChirps = await Chirp.find({ parentId: chirpId });
 
-  //calc post skip
-  const skipAmount = (pageNumber - 1) * pageSize;
+  const descendantChirps = [];
+  for (const childChirp of childChirps) {
+    const descendants = await fetchAllChildChirps(childChirp._id);
+    descendantChirps.push(childChirp, ...descendants);
+  }
 
-  //top lvl chirps
-  const chirpsQuery = Chirp.find({ parentId: { $in: [null, undefined] } })
-    .sort({ createdAt: "desc" })
-    .skip(skipAmount)
-    .limit(pageSize)
-    .populate({ path: "author", model: User })
-    .populate({
-      path: "children",
-      populate: {
-        path: "author",
-        model: User,
-        select: "_id name parentId image",
-      },
-    });
+  return descendantChirps;
+}
 
-  const totalChirpCount = await Chirp.countDocuments({
-    parentId: { $in: [null, undefined] },
-  }).maxTimeMS(15000);
+export async function deleteChirp(id: string, path: string): Promise<void> {
+  try {
+    connectToDB();
 
-  const chirps = await chirpsQuery.exec();
+    // Find the chirp to be deleted (the main chirp)
+    const mainChirp = await Chirp.findById(id).populate("author circle");
 
-  const isNext = totalChirpCount > skipAmount + chirps.length;
+    if (!mainChirp) {
+      throw new Error("Chirp not found");
+    }
 
-  return { chirps, isNext };
+    // Fetch all child chirps and their descendants recursively
+    const descendantChirps = await fetchAllChildChirps(id);
+
+    // Get all descendant chirp IDs including the main chirp ID and child chirp IDs
+    const descendantChirpIds = [
+      id,
+      ...descendantChirps.map((chirp) => chirp._id),
+    ];
+
+    // Extract the authorIds and circleIds to update User and Circle models respectively
+    const uniqueAuthorIds = new Set(
+      [
+        ...descendantChirps.map((chirp) => chirp.author?._id?.toString()), // Use optional chaining to handle possible undefined values
+        mainChirp.author?._id?.toString(),
+      ].filter((id) => id !== undefined)
+    );
+
+    const uniqueCircleIds = new Set(
+      [
+        ...descendantChirps.map((chirp) => chirp.circle?._id?.toString()), // Use optional chaining to handle possible undefined values
+        mainChirp.circle?._id?.toString(),
+      ].filter((id) => id !== undefined)
+    );
+
+    // Recursively delete child chirps and their descendants
+    await Chirp.deleteMany({ _id: { $in: descendantChirpIds } });
+
+    // Update User model
+    await User.updateMany(
+      { _id: { $in: Array.from(uniqueAuthorIds) } },
+      { $pull: { chirps: { $in: descendantChirpIds } } }
+    );
+
+    // Update Circle model
+    await Circle.updateMany(
+      { _id: { $in: Array.from(uniqueCircleIds) } },
+      { $pull: { chirps: { $in: descendantChirpIds } } }
+    );
+
+    revalidatePath(path);
+  } catch (error: any) {
+    throw new Error(`Failed to delete chirp: ${error.message}`);
+  }
 }
 
 export async function fetchChirpById(chirpId: string) {
   connectToDB();
+
   try {
-    //TODO: populate circle
     const chirp = await Chirp.findById(chirpId)
       .populate({
         path: "author",
         model: User,
-        select: "_id id name image",
-      })
+        select: "_id id name username image",
+      }) // Populate the author field with _id and username
       .populate({
         path: "circle",
         model: Circle,
         select: "_id id name image",
-      })
+      }) // Populate the circle field with _id and name
       .populate({
         path: "children", // Populate the children field
         populate: [
           {
             path: "author", // Populate the author field within children
             model: User,
-            select: "_id id name parentId image", // Select only _id and username fields of the author
+            select: "_id id name username parentId image", // Select only _id and username fields of the author
           },
           {
             path: "children", // Populate the children field within children
-            model: Chirp, // The model of the nested children (assuming it's the same "Thread" model)
+            model: Chirp, // The model of the nested children (assuming it's the same "Chirp" model)
             populate: {
               path: "author", // Populate the author field within nested children
               model: User,
-              select: "_id id name parentId image", // Select only _id and username fields of the author
+              select: "_id id name username parentId image", // Select only _id and username fields of the author
             },
           },
         ],
@@ -109,8 +190,9 @@ export async function fetchChirpById(chirpId: string) {
       .exec();
 
     return chirp;
-  } catch (err: any) {
-    throw new Error(`Error fetching chirp: ${err.message}`);
+  } catch (err) {
+    console.error("Error while fetching chirp:", err);
+    throw new Error("Unable to fetch chirp");
   }
 }
 
@@ -123,31 +205,32 @@ export async function addCommentToChirp(
   connectToDB();
 
   try {
-    //adding comment
+    // Find the original chirp by its ID
     const originalChirp = await Chirp.findById(chirpId);
 
     if (!originalChirp) {
       throw new Error("Chirp not found");
     }
 
-    //create a new chirp with the comment txt
+    // Create the new comment chirp
     const commentChirp = new Chirp({
       text: commentText,
       author: userId,
-      parentId: chirpId,
+      parentId: chirpId, // Set the parentId to the original chirp's ID
     });
 
-    //save new chirp
+    // Save the comment chirp to the database
     const savedCommentChirp = await commentChirp.save();
 
-    //update the orig chirp to include new comment
+    // Add the comment chirp's ID to the original chirp's children array
     originalChirp.children.push(savedCommentChirp._id);
 
-    //save orig chirp
+    // Save the updated original chirp to the database
     await originalChirp.save();
 
     revalidatePath(path);
-  } catch (err: any) {
-    throw new Error(`Error adding comment to chirp: ${err.message}`);
+  } catch (err) {
+    console.error("Error while adding comment:", err);
+    throw new Error("Unable to add comment");
   }
 }

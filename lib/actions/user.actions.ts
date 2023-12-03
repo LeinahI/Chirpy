@@ -84,20 +84,20 @@ export async function fetchUserPosts(userId: string) {
 export async function fetchUsers({
   userId,
   searchString = "",
-  pageNum = 1,
+  pageNumber = 1,
   pageSize = 20,
   sortBy = "desc",
 }: {
   userId: string;
   searchString?: string;
-  pageNum?: number;
+  pageNumber?: number;
   pageSize?: number;
   sortBy?: SortOrder;
 }) {
   try {
     connectToDB();
 
-    const skipAmt = (pageNum - 1) * pageSize; //skip
+    const skipAmt = (pageNumber - 1) * pageSize; //skip
 
     const regex = new RegExp(searchString, "i");
 

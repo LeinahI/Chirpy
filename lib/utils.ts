@@ -28,7 +28,32 @@ export function formatDateString(dateString: string) {
     minute: "2-digit",
   });
 
-  return `${time} - ${formattedDate}`;
+  return `${formattedDate} - ${time}`;
+}
+
+export function formatTimeString(dateString: string) {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  };
+
+  const date = new Date(dateString);
+  const formattedDate = date.toLocaleDateString(undefined, options);
+
+  const now = new Date();
+  const timeDifference = now.getTime() - date.getTime();
+  const minutes = Math.floor(timeDifference / (1000 * 60));
+  const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+  const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  if (minutes < 60) {
+    return `${minutes}m`;
+  } else if (hours < 24) {
+    return `${hours}h`;
+  } else {
+    return `${days}d`;
+  }
 }
 
 // created by chatgpt

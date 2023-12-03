@@ -4,7 +4,8 @@ import { FilterQuery, SortOrder } from "mongoose";
 import Circle from "../models/circle.model";
 import Chirp from "../models/chirp.model";
 import User from "../models/user.model";
-
+import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 import { connectToDB } from "../mongoose";
 
 export async function createCircle(
@@ -80,7 +81,7 @@ export async function fetchCircleChirps(id: string) {
         {
           path: "author",
           model: User,
-          select: "name image id", // Select the "name" and "_id" fields from the "User" model
+          select: "name username image id", // Select the "name" and "_id" fields from the "User" model
         },
         {
           path: "children",
@@ -88,7 +89,7 @@ export async function fetchCircleChirps(id: string) {
           populate: {
             path: "author",
             model: User,
-            select: "image _id", // Select the "name" and "_id" fields from the "User" model
+            select: "name username image _id", // Select the "name" and "_id" fields from the "User" model
           },
         },
       ],
@@ -158,10 +159,7 @@ export async function fetchCircles({
   }
 }
 
-export async function addMemberToCircle(
-  circleId: string,
-  memberId: string
-) {
+export async function addMemberToCircle(circleId: string, memberId: string) {
   try {
     connectToDB();
 
@@ -200,18 +198,12 @@ export async function addMemberToCircle(
   }
 }
 
-export async function removeUserFromCircle(
-  userId: string,
-  circleId: string
-) {
+export async function removeUserFromCircle(userId: string, circleId: string) {
   try {
     connectToDB();
 
     const userIdObject = await User.findOne({ id: userId }, { _id: 1 });
-    const circleIdObject = await Circle.findOne(
-      { id: circleId },
-      { _id: 1 }
-    );
+    const circleIdObject = await Circle.findOne({ id: circleId }, { _id: 1 });
 
     if (!userIdObject) {
       throw new Error("User not found");

@@ -70,6 +70,7 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                   type="text"
                   className="no-focus text-light-1 outline-none"
                   placeholder="Share your thoughts..."
+                  autoComplete="off"
                   {...field}
                 />
               </FormControl>

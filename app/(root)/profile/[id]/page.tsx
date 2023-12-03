@@ -9,13 +9,11 @@ import ChirpsTab from "@/components/shared/ChirpsTab";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
-
   if (!user) return null;
 
   const userInfo = await fetchUser(params.id);
-
   if (!userInfo?.onboarded) redirect("/onboarding");
-  
+
   return (
     <section>
       <ProfileHeader
@@ -43,19 +41,23 @@ async function Page({ params }: { params: { id: string } }) {
 
                 {tab.label === "Chirps" && (
                   <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
-                    {userInfo?.chirps?.length}
+                    {userInfo.chirps.length}
                   </p>
                 )}
               </TabsTrigger>
             ))}
           </TabsList>
           {profileTabs.map((tab) => (
-            <TabsContent value={tab.value} key={`content-${tab.label}`} className="w-full text-light-1">
-                <ChirpsTab
+            <TabsContent
+              value={tab.value}
+              key={`content-${tab.label}`}
+              className="w-full text-light-1"
+            >
+              <ChirpsTab
                 currentUserId={user.id}
                 accountId={userInfo.id}
                 accountType="User"
-                />
+              />
             </TabsContent>
           ))}
         </Tabs>
