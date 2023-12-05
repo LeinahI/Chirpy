@@ -1,6 +1,1 @@
-https://youtu.be/O5cmLDVTgAs?t=18219
-https://www.realtimecolors.com/?colors=303030-fffaeb-F2B705-F29F05-F28705&fonts=Inter-Inter
-To add this on Github
-1. git add ./
-2. git commit -m 'Message of your commit'
-3. git push
+
