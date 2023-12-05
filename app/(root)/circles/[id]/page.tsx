@@ -4,8 +4,8 @@ import { circleTabs } from "@/constants";
 import ProfileHeader from "@/components/shared/ProfileHeader";
 import ChirpsTab from "@/components/shared/ChirpsTab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { fetchCircleDetails } from "@/lib/actions/circle.actions";
 import UserCard from "@/components/cards/UserCard";
+import { fetchCircleDetails } from "@/lib/actions/circle.actions";
 
 async function Page({ params }: { params: { id: string } }) {
   const user = await currentUser();
@@ -21,7 +21,7 @@ async function Page({ params }: { params: { id: string } }) {
         name={circleDetails.name}
         username={circleDetails.username}
         imgUrl={circleDetails.image}
-        bio={circleDetails.bio}
+        bio={circleDetails.bi} //add 's' if you want to see bio
         type="Circle"
       />
 
@@ -48,15 +48,24 @@ async function Page({ params }: { params: { id: string } }) {
             ))}
           </TabsList>
 
+          {/* Chirps */}
           <TabsContent value="chirps" className="w-full text-light-1">
             {/*  shows the User Posts inside of circle */}
-            <ChirpsTab
-              currentUserId={user.id}
-              accountId={circleDetails._id}
-              accountType="Circle"
-            />
+
+            {circleDetails?.chirps?.length === 0 ? (
+              <div className="mt-9 flex flex-col gap-10">
+                <p className="no-result">No chirps found</p>
+              </div>
+            ) : (
+              <ChirpsTab
+                currentUserId={user.id}
+                accountId={circleDetails._id}
+                accountType="Circle"
+              />
+            )}
           </TabsContent>
 
+          {/* Members */}
           <TabsContent value="members" className="w-full text-light-1">
             {/* shows members list */}
             <section className="mt-9 flex flex-col gap-10">
@@ -73,14 +82,14 @@ async function Page({ params }: { params: { id: string } }) {
             </section>
           </TabsContent>
 
-          <TabsContent value="requests" className="w-full text-light-1">
-            {/* Shows members request */}
+          {/* Requests */}
+          {/* <TabsContent value="requests" className="w-full text-light-1">
             <ChirpsTab
               currentUserId={user.id}
               accountId={circleDetails.id}
               accountType="Circle"
             />
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </section>

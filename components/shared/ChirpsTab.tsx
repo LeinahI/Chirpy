@@ -1,7 +1,37 @@
-import { fetchUserPosts } from "@/lib/actions/user.actions";
+import { fetchUser, fetchUserPosts } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import ChirpCard from "../cards/ChirpCard";
 import { fetchCircleChirps } from "@/lib/actions/circle.actions";
+import { currentUser } from "@clerk/nextjs";
+
+interface Result {
+  name: string;
+  image: string;
+  username: string;
+  id: string;
+  chirps: {
+    _id: string;
+    text: string;
+    parentId: string | null;
+    author: {
+      username: string;
+      name: string;
+      image: string;
+      id: string;
+    };
+    circle: {
+      id: string;
+      name: string;
+      image: string;
+    } | null;
+    createdAt: string;
+    children: {
+      author: {
+        image: string;
+      };
+    }[];
+  }[];
+}
 
 interface Props {
   currentUserId: string;
@@ -11,7 +41,7 @@ interface Props {
 
 const ChirpsTab = async ({ currentUserId, accountId, accountType }: Props) => {
   try {
-    let result: any;
+    let result: Result;
 
     if (accountType === "Circle") {
       result = await fetchCircleChirps(accountId);
@@ -19,16 +49,21 @@ const ChirpsTab = async ({ currentUserId, accountId, accountType }: Props) => {
       result = await fetchUserPosts(accountId);
     }
 
-    // Handle the case where there is no result
     if (!result) {
-      console.error("No result found. Redirecting to /");
-      // Move redirect outside the try block
       redirect("/");
     }
 
+    const user = await currentUser();
+    if (!user) return null;
+
+    const userInfo = await fetchUser(user.id);
+    if (!userInfo?.onboarded) redirect("/onboarding");
+
+    // Handle the case where there is no result
+
     return (
       <section className="mt-9 flex flex-col gap-10">
-        {result.chirps.map((chirp: any) => (
+        {result.chirps.map((chirp) => (
           <ChirpCard
             key={chirp._id}
             id={chirp._id}

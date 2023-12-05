@@ -53,7 +53,7 @@ export async function fetchCircleDetails(id: string) {
   try {
     connectToDB();
 
-    const circleDetails = await Circle.findOne({ id }).populate([
+    return await Circle.findOne({ id }).populate([
       "createdBy",
       {
         path: "members",
@@ -61,12 +61,10 @@ export async function fetchCircleDetails(id: string) {
         select: "name username image _id id",
       },
     ]);
-
-    return circleDetails;
-  } catch (error) {
+  } catch (err) {
     // Handle any errors
-    console.error("Error fetching circle details:", error);
-    throw error;
+    console.error("Error fetching circle details:", err);
+    throw err;
   }
 }
 
@@ -144,7 +142,6 @@ export async function fetchCircles({
       .limit(pageSize)
       .populate("members");
 
-    // Count the total number of circles that match the search criteria (without pagination).
     const totalCirclesCount = await Circle.countDocuments(query);
 
     const circles = await circlesQuery.exec();

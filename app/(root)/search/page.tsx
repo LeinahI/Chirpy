@@ -50,7 +50,7 @@ async function Page({
       </div>
 
       <Pagination
-        path="search"
+        path='search'
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
       />

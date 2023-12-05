@@ -34,7 +34,7 @@ async function Page({
           <SearchbarCircles routeType="circles" />
         </div>
 
-        <div className="mt-9 flex flex-wrap wrap gap-6">
+        <div className="mt-9 flex flex-wrap gap-9 ">
           {result.circles.length === 0 ? (
             <p className="no-result">No circles exists</p>
           ) : (

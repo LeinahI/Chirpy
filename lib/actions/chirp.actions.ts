@@ -85,7 +85,7 @@ export async function createChirp({ text, author, circleId, path }: Params) {
   }
 }
 
-async function fetchAllChildChirps(chirpId: string): Promise<any[]> {
+export async function fetchAllChildChirps(chirpId: string): Promise<any[]> {
   const childChirps = await Chirp.find({ parentId: chirpId });
 
   const descendantChirps = [];

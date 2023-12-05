@@ -1,7 +1,7 @@
 //The Sign In/Out interface
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { Raleway } from "next/font/google";
+import { Inter } from "next/font/google";
 import "../globals.css";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
     "Chirpy: Elevate your social experience with seamless connections, vibrant conversations, and personalized content sharing.",
 };
 
-const raleway = Raleway({ subsets: ["latin"] });
+const mainFont = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${raleway.className} bg-dark-1`}>
+        <body className={`${mainFont.className} bg-dark-1`}>
           <div className="w-full flex justify-center items-center min-h-screen">
             {children}
           </div>

@@ -27,7 +27,7 @@ async function Page() {
         Complete your profile to use Chirpy
       </p>
 
-      <section className="mt-9 bg-dark-2 p-10">
+      <section className="mt-9 rounded-xl bg-dark-2 p-10">
         <AccountProfile 
         user={userData} 
         btnTitle="Continue" />

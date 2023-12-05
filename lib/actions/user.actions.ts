@@ -5,6 +5,7 @@ import User from "../models/user.model";
 import { connectToDB } from "../mongoose";
 import Chirp from "../models/chirp.model";
 import { FilterQuery, SortOrder } from "mongoose";
+import Circle from "../models/circle.model";
 
 /* Server Actions */
 
@@ -50,9 +51,23 @@ export async function updateUser({
 export async function fetchUser(userId: string) {
   try {
     connectToDB();
-    return await User.findOne({ id: userId });
+
+    return await User.findOne({ id: userId }).populate({
+      path: "circles",
+      model: Circle,
+      select: "name username image _id id",
+    });
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user: ${error.message}`);
+  }
+}
+
+export async function fetchCircle(circleId: string) {
+  try {
+    connectToDB();
+    return await User.findOne({ id: circleId });
   } catch (err: any) {
-    throw new Error(`Failed to fetch user: ${err.message}`);
+    throw new Error(`Failed to fetch circle: ${err.message}`);
   }
 }
 
@@ -64,15 +79,22 @@ export async function fetchUserPosts(userId: string) {
     const chirps = await User.findOne({ id: userId }).populate({
       path: "chirps",
       model: Chirp,
-      populate: {
-        path: "children",
-        model: Chirp,
-        populate: {
-          path: "author",
-          model: User,
-          select: "name image id",
+      populate: [
+        {
+          path: "circle",
+          model: Circle,
+          select: "name id image _id", // Select the "name" and "_id" fields from the "Community" model
         },
-      },
+        {
+          path: "children",
+          model: Chirp,
+          populate: {
+            path: "author",
+            model: User,
+            select: "name image id", // Select the "name" and "_id" fields from the "User" model
+          },
+        },
+      ],
     });
 
     return chirps;
@@ -144,7 +166,9 @@ export async function getActivity(userId: string) {
     const childChirpIds = userChirps.reduce(
       (acc /*accumulator*/, userChirp) => {
         return acc.concat(userChirp.children);
-      }, []);
+      },
+      []
+    );
 
     const replies = await Chirp.find({
       _id: { $in: childChirpIds },

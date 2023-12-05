@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString, formatTimeString } from "@/lib/utils";
+import DeleteChirps from "../forms/DeleteChirp";
 
 interface Props {
   id: string;
@@ -68,10 +69,9 @@ const ChirpCard = ({
               >
                 <Image
                   src={circle.image}
-                  alt={circle.name}
-                  width={44}
-                  height={44}
-                  className="cursor-pointer rounded-lg"
+                  alt={circle.image}
+                  fill
+                  className="relative h-[44px] w-[44px] rounded-lg object-cover shawdow-2xl"
                 />
               </Link>
               <Link
@@ -83,7 +83,7 @@ const ChirpCard = ({
                   alt="Profile image"
                   height={25}
                   width={25}
-                  className=" cursor-pointer rounded-full"
+                  className="relative h-[25px] w-[25px] cursor-pointer rounded-full"
                 />
               </Link>
             </>
@@ -106,7 +106,7 @@ const ChirpCard = ({
               <div className="flex items-center">
                 <Link href={`/profile/${author.id}`} className="w-fit">
                   <p className="text-subtle-medium text-gray-1">
-                    {author.username}
+                    @{author.username}
                   </p>
                 </Link>
                 <span className="text-subtle-medium text-gray-1">
@@ -128,7 +128,7 @@ const ChirpCard = ({
             <>
               <Link href={`/circles/${circle.id}`} className="w-fit">
                 <h4 className="cursor-pointer text-base-semibold text-light-1">
-                  {circle.name}
+                  {circle && `${circle.name}`}
                 </h4>
               </Link>
 
@@ -220,21 +220,32 @@ const ChirpCard = ({
           </div>
         </div>
       </div>
+      <div className="flex flex-row gap-2">
+        <DeleteChirps
+          chirpId={JSON.stringify(id)}
+          currentUserId={currentUserId}
+          authorId={author.id}
+          parentId={parentId}
+          isComment={isComment}
+        />
+      </div>
     </div>
+
     {/* {!isComment && circle && (
       <Link href={`/circles/${circle.id}`} className="mt-5 flex items-center">
         <p className="text-subtle-medium text-gray-1">
           {formatDateString(createdAt)}
-          {circle && ` • ${circle.name} Circle`}
+          {circle && ` - ${circle.name} Circle`}
         </p>
-
-        <Image
-          src={circle.image}
-          alt={circle.name}
-          width={14}
-          height={14}
-          className="ml-1 rounded-full object-cover"
-        />
+        &nbsp;
+        <div className="relative h-[14px] w-[14px] object-cover">
+          <Image
+            src={circle.image}
+            alt={circle.image}
+            fill
+            className="rounded-full object-cover shawdow-2xl"
+          />
+        </div>
       </Link>
     )} */}
   </article>
