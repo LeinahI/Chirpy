@@ -22,11 +22,11 @@ const UserCard = ({ id, name, username, imgUrl, personType }: Props) => {
           alt="logo"
           width={48}
           height={48}
-          className="rounded-full relative h-[48px] w-[48px]"
+          className="rounded-full relative object-cover h-[48px] w-[48px]"
         />
 
         <div className="flex-1 text-ellipsis">
-          <h4 className="text-base-semibold text-light-1">{name}</h4>
+          <h4 className="text-base-semibold text-dark-1">{name}</h4>
           <p className="text-small-medium text-gray-1">@{username}</p>
         </div>
       </div>

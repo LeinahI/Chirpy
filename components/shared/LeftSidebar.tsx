@@ -1,3 +1,4 @@
+// LeftSidebar.tsx
 "use client";
 
 import { sidebarLinks } from "@/constants";
@@ -22,12 +23,14 @@ function LeftSidebar() {
           if (link.route === "/profile") link.route = `${link.route}/${userId}`;
 
           return (
-            <div>
-              <Link
-                href={link.route}
-                key={link.label}
-                className={`leftsidebar_link ${isActive && "bg-primary-500"}`}
-              >
+            <Link
+              href={link.route}
+              key={link.label}
+              className={`leftsidebar_link ${
+                isActive ? "bg-light-4" : "hover:bg-light-4"
+              }`}
+            >
+              <div className="flex items-center gap-4 p-2">
                 <Image
                   src={link.imgURL}
                   alt={link.label}
@@ -35,9 +38,11 @@ function LeftSidebar() {
                   height={24}
                 />
 
-                <p className="text-light-1 max-lg:hidden">{link.label}</p>
-              </Link>
-            </div>
+                <p className={`${isActive ? "text-accent-500" : "text-gray-1"}`}>
+                  {link.label}
+                </p>
+              </div>
+            </Link>
           );
         })}
       </div>
@@ -45,14 +50,14 @@ function LeftSidebar() {
       <div className="mt-10 px-6">
         <SignedIn>
           <SignOutButton signOutCallback={() => router.push("/sign-in")}>
-            <div className="flex cursor-pointer gap-4 p-4">
+            <div className="flex cursor-pointer gap-4 p-4 hover:bg-light-4 rounded-lg">
               <Image
                 src="/assets/logout.svg"
                 alt={"Sign out"}
                 width={24}
                 height={24}
               />
-              <p className="text-light-2 max-lg:hidden">Sign Out</p>
+              <p className="text-dark-1 max-lg:hidden">Sign Out</p>
             </div>
           </SignOutButton>
         </SignedIn>
@@ -60,4 +65,5 @@ function LeftSidebar() {
     </section>
   );
 }
+
 export default LeftSidebar;

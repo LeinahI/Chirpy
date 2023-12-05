@@ -76,34 +76,50 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     }
   };
 
+  // Type guard for error objects with a "message" property
+  function isErrorWithMessage(obj: unknown): obj is { message: string } {
+    return typeof obj === "object" && obj !== null && "message" in obj;
+  }
+
   /* onsubmit func */
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
-    const blob = values.profile_photo;
+    try {
+      const blob = values.profile_photo;
 
-    const hasImageChanged = isBase64Image(blob);
+      const hasImageChanged = isBase64Image(blob);
 
-    if (hasImageChanged) {
-      const imgRes = await startUpload(files);
+      if (hasImageChanged) {
+        const imgRes = await startUpload(files);
 
-      if (imgRes && imgRes[0].fileUrl) {
-        values.profile_photo = imgRes[0].fileUrl;
+        if (imgRes && imgRes[0].fileUrl) {
+          values.profile_photo = imgRes[0].fileUrl;
+        }
       }
-    }
 
-    //TODO: update user profile
-    await updateUser({
-      name: values.name,
-      path: pathname,
-      username: values.username,
-      userId: user.id,
-      bio: values.bio,
-      image: values.profile_photo,
-    });
+      //TODO: update user profile
+      await updateUser({
+        name: values.name,
+        path: pathname,
+        username: values.username,
+        userId: user.id,
+        bio: values.bio,
+        image: values.profile_photo,
+      });
 
-    if (pathname === "/profile/edit") {
-      router.back();
-    } else {
-      router.push("/");
+      if (pathname === "/profile/edit") {
+        router.back();
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      if (isErrorWithMessage(error)) {
+        // Handle the specific error
+        // You can display an error message to the user
+        form.setError("username", { message: "Username is already taken." });
+      } else {
+        // Handle other errors
+        console.error("Error updating user:", error);
+      }
     }
   };
 
@@ -121,14 +137,14 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
                 {field.value ? (
-                    <Image
-                      src={field.value}
-                      alt={"Profile photo"}
-                      priority
-                      width={100}
-                      height={100}
-                      className="relative h-[100px] w-[100px] rounded-full object-cover"
-                    />
+                  <Image
+                    src={field.value}
+                    alt={"Profile photo"}
+                    priority
+                    width={100}
+                    height={96}
+                    className="relative h-[96px] w-[100px] rounded-full object-cover"
+                  />
                 ) : (
                   <Image
                     src="/assets/profile.svg"
@@ -139,7 +155,8 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   />
                 )}
               </FormLabel>
-              <FormControl className="flex-1 text-base-semibold text-gray-200">
+              {/* File name label */}
+              <FormControl className="flex-1 text-base-semibold text-dark-1">
                 <Input
                   type="file"
                   accept="image/*"
@@ -157,7 +174,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="name"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-3 w-full">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Name
               </FormLabel>
               <FormControl>
@@ -177,7 +194,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="username"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-3 w-full">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Username
               </FormLabel>
               <FormControl>
@@ -197,7 +214,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
           name="bio"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-3 w-full">
-              <FormLabel className="text-base-semibold text-light-2">
+              <FormLabel className="text-base-semibold text-dark-1">
                 Bio
               </FormLabel>
               <FormControl>
@@ -213,7 +230,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {/* Btn */}
-        <Button type="submit" className="bg-primary-500">
+        <Button type="submit" className="bg-primary-500 hover:bg-secondary-500">
           Submit
         </Button>
       </form>

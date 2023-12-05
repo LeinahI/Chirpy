@@ -61,14 +61,14 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                   src={currentUserImg}
                   alt="Profile Image"
                   width={48}
-                  height={48}
-                  className="rounded-full h-[48px] w-[48px] object-cover"
+                  height={44.4167}
+                  className="rounded-full relative h-[44.4167px] w-[48px]"
                 />
               </FormLabel>
               <FormControl className="border-none bg-transparent">
                 <Input
                   type="text"
-                  className="no-focus text-light-1 outline-none"
+                  className="no-focus text-dark-1 outline-none"
                   placeholder="Share your thoughts..."
                   autoComplete="off"
                   {...field}

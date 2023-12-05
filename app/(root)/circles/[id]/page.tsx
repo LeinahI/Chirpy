@@ -40,7 +40,7 @@ async function Page({ params }: { params: { id: string } }) {
                 <p className="max-sm:hidden">{tab.label}</p>
 
                 {tab.label === "Chirps" && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                  <p className="ml-1 rounded-sm bg-light-2 px-2 py-1 !text-tiny-medium text-dark-1">
                     {circleDetails?.chirps?.length}
                   </p>
                 )}
@@ -49,12 +49,12 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsList>
 
           {/* Chirps */}
-          <TabsContent value="chirps" className="w-full text-light-1">
+          <TabsContent value="chirps" className="w-full">
             {/*  shows the User Posts inside of circle */}
 
             {circleDetails?.chirps?.length === 0 ? (
               <div className="mt-9 flex flex-col gap-10">
-                <p className="no-result">No chirps found</p>
+                <p className="no-result text-dark-1">No chirps found</p>
               </div>
             ) : (
               <ChirpsTab
@@ -66,7 +66,7 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsContent>
 
           {/* Members */}
-          <TabsContent value="members" className="w-full text-light-1">
+          <TabsContent value="members" className="w-full text-dark-1">
             {/* shows members list */}
             <section className="mt-9 flex flex-col gap-10">
               {circleDetails.members.map((member: any) => (

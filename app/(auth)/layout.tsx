@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${mainFont.className} bg-dark-1`}>
+        <body className={`${mainFont.className} bg-light-1`}>
           <div className="w-full flex justify-center items-center min-h-screen">
             {children}
           </div>

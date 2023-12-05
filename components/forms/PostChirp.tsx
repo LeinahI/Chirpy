@@ -61,7 +61,7 @@ function PostChirp({ userId }: Props) {
           name='chirp'
           render={({ field }) => (
             <FormItem className='flex w-full flex-col gap-3'>
-              <FormControl className='no-focus border border-dark-4 bg-dark-3 text-light-1'>
+              <FormControl className='no-focus border border-primary-500 bg-light-2 text-dark-1'>
                 <Textarea 
                 rows={15} 
                 {...field} 
@@ -74,7 +74,7 @@ function PostChirp({ userId }: Props) {
           )}
         />
 
-        <Button type='submit' className='bg-primary-500'>
+        <Button type='submit' className='bg-primary-500 hover:bg-secondary-500'>
           Post Chirp
         </Button>
       </form>

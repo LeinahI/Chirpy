@@ -173,20 +173,19 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-500": "#877EFF",
-        "secondary-500": "#FFB620",
+        "primary-500": "#F2B705", 
+        "secondary-500": "#F29F05", 
+        "accent-500": "#F28705", 
         blue: "#0095F6",
-        "logout-btn": "#FF5A5A",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
-        "dark-1": "#000000",
-        "dark-2": "#121417",
-        "dark-3": "#101012",
-        "dark-4": "#1F1F22",
-        "light-1": "#FFFFFF",
-        "light-2": "#EFEFEF",
-        "light-3": "#7878A3",
-        "light-4": "#5C5C7B",
-        "gray-1": "#697C89",
+        "dark-1": "#303030", /* Text */
+        "dark-2": "#7878A3",
+        "dark-3": "#5C5C7B",
+        "gray-1": "#8F8D86", /* Subheading */
+        "light-1": "#FFFAEB", /* BG */
+        "light-2": "#F4EFE1", /* Sidebars */
+        "light-3": "#F7F2E4",
+        "light-4": "#F6E2B7", /* is Active */
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {

@@ -28,6 +28,16 @@ export async function updateUser({
 }: Params): Promise<void> {
   connectToDB();
   try {
+    // Check if the username already exists
+    const existingUser = await User.findOne({
+      username: username.toLowerCase(),
+    });
+    if (existingUser && existingUser.id !== userId) {
+      // If the username exists and belongs to a different user, throw an error
+      throw new Error("Username is already taken.");
+    }
+
+    // Update the user
     await User.findOneAndUpdate(
       { id: userId },
       {

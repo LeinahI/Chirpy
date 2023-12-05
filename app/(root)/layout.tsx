@@ -30,7 +30,6 @@ export default async function RootLayout({
       <html lang="en">
         <body className={mainFont.className}>
           <Topbar />
-
           <main className="flex flex-row">
             <LeftSidebar />
             <section className="main-container">

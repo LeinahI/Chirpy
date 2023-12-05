@@ -42,7 +42,7 @@ const ChirpCard = ({
 }: Props) => (
   <article
     className={`flex w-full flex-col rounded-xl ${
-      isComment ? "px-0 xs:px-7" : "bg-dark-2 p-7"
+      isComment ? "px-0 xs:px-7" : "bg-light-2 p-7"
     }`}
   >
     <div className="flex items-start justify-between">
@@ -55,7 +55,7 @@ const ChirpCard = ({
                 src={author.image}
                 alt="Profile image"
                 fill
-                className="cursor-pointer rounded-full"
+                className="cursor-pointer object-cover rounded-full"
               />
             </Link>
           )}
@@ -83,7 +83,7 @@ const ChirpCard = ({
                   alt="Profile image"
                   height={25}
                   width={25}
-                  className="relative h-[25px] w-[25px] cursor-pointer rounded-full"
+                  className="relative h-[25px] w-[25px] object-cover cursor-pointer rounded-full"
                 />
               </Link>
             </>
@@ -98,7 +98,7 @@ const ChirpCard = ({
           {!circle && (
             <>
               <Link href={`/profile/${author.id}`} className="w-fit">
-                <h4 className="cursor-pointer text-base-semibold text-light-1">
+                <h4 className="cursor-pointer text-base-semibold text-dark-1">
                   {author.name}
                 </h4>
               </Link>
@@ -127,7 +127,7 @@ const ChirpCard = ({
           {circle && (
             <>
               <Link href={`/circles/${circle.id}`} className="w-fit">
-                <h4 className="cursor-pointer text-base-semibold text-light-1">
+                <h4 className="cursor-pointer text-base-semibold text-dark-1">
                   {circle && `${circle.name}`}
                 </h4>
               </Link>
@@ -154,7 +154,7 @@ const ChirpCard = ({
           )}
 
           {/* The User Post */}
-          <p className="mt-2 text-small-regular text-light-2">{content}</p>
+          <p className="mt-2 text-small-regular text-dark-1">{content}</p>
 
           <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
             <div className="flex gap-3.5">
@@ -203,7 +203,7 @@ const ChirpCard = ({
                         height={24}
                         className={`${
                           index !== 0 && "-ml-5"
-                        } rounded-full object-cover`}
+                        } rounded-full h-[24px] w-[24px] object-cover`}
                       />
                     ))}
 
