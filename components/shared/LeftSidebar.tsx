@@ -57,7 +57,7 @@ function LeftSidebar() {
                 width={24}
                 height={24}
               />
-              <p className="text-dark-1 max-lg:hidden">Sign Out</p>
+              <p className="text-dark-1">Sign Out</p>{/* max-lg:hidden */}
             </div>
           </SignOutButton>
         </SignedIn>
