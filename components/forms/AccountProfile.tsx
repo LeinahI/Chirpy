@@ -115,7 +115,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       if (isErrorWithMessage(error)) {
         // Handle the specific error
         // You can display an error message to the user
-        form.setError("username", { message: "Username is already taken." });
+        form.setError("username", { message: "This username is already taken" });
       } else {
         // Handle other errors
         console.error("Error updating user:", error);
@@ -182,6 +182,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   type="text"
                   className="account-form_input no-focus"
                   {...field}
+                  autoComplete="off"
                 />
               </FormControl>
               <FormMessage />
@@ -201,6 +202,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                 <Input
                   type="text"
                   className="account-form_input no-focus"
+                  autoComplete="off"
                   {...field}
                 />
               </FormControl>
@@ -222,6 +224,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                   rows={3}
                   className="account-form_input no-focus resize-none"
                   {...field}
+                  autoComplete="off"
                 />
               </FormControl>
               <FormMessage />

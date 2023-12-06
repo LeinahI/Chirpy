@@ -131,7 +131,7 @@
 
 /* Tab */
 .tab {
-  @apply flex min-h-[50px] flex-1 items-center gap-3 bg-light-4 text-light-1 data-[state=active]:bg-primary-500 data-[state=active]:text-light-1 !important;
+  @apply flex min-h-[50px] flex-1 rounded-xl items-center gap-3 bg-light-4 text-light-1 data-[state=active]:bg-primary-500 data-[state=active]:text-light-1 !important;
 }
 
 .no-focus {
@@ -158,4 +158,8 @@
 
 .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
+}
+
+.follow-card_btn {
+  @apply rounded-lg bg-primary-500 px-3 py-1.5 text-small-regular !text-light-1 !important;
 }

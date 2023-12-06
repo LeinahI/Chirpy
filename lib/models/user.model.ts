@@ -1,5 +1,29 @@
 import mongoose from "mongoose";
 
+/* FollowerSchema */
+const followerSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+/* ReactionSchema */
+const reactionSchema = new mongoose.Schema({
+  thread: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Chirp",
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const userSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -16,12 +40,15 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   bio: String,
+  followers: [followerSchema],
+  following: [followerSchema],
   chirps: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chirp",
     },
   ],
+  reactions: [reactionSchema],
   onboarded: {
     type: Boolean,
     default: false,
@@ -32,6 +59,26 @@ const userSchema = new mongoose.Schema({
       ref: "Circle",
     },
   ],
+});
+
+userSchema.virtual("chirpsCount").get(function () {
+  return this.chirps.length;
+});
+
+userSchema.virtual("followersCount").get(function () {
+  return this.followers.length;
+});
+
+userSchema.virtual("followingCount").get(function () {
+  return this.following.length;
+});
+
+userSchema.virtual("circlesCount").get(function () {
+  return this.circles.length;
+});
+
+userSchema.virtual("reactionsCount").get(function () {
+  return this.reactions.length;
 });
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

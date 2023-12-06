@@ -8,6 +8,30 @@ import User from "../models/user.model";
 import Chirp from "../models/chirp.model";
 import Circle from "../models/circle.model";
 
+export async function isThreadReactedByUser({
+  chirpId,
+  userId,
+}: {
+  chirpId: string;
+  userId: string;
+}) {
+  try {
+    connectToDB();
+
+    const chirp = await Chirp.findOne({ _id: chirpId });
+
+    const isReacted: any = chirp.reactions.some((reaction: any) =>
+      reaction.user.equals(userId)
+    );
+
+    return !!isReacted;
+  } catch (error: any) {
+    throw new Error(
+      `Failed to check if chirp is reacted by user: ${error.message}`
+    );
+  }
+}
+
 export async function fetchChirps(pageNumber = 1, pageSize = 20) {
   connectToDB();
 
@@ -193,6 +217,60 @@ export async function fetchChirpById(chirpId: string) {
   } catch (err) {
     console.error("Error while fetching chirp:", err);
     throw new Error("Unable to fetch chirp");
+  }
+}
+
+export async function addReactToChirp({
+  chirpId,
+  userId,
+  path,
+}: {
+  chirpId: string;
+  userId: string;
+  path: string;
+}) {
+  try {
+    connectToDB();
+
+    const chirp = await Chirp.findById(chirpId);
+    const user = await User.findOne({ id: userId });
+
+    if (!chirp) {
+      throw new Error("Chirp not found");
+    }
+
+    const isAlreadyReacted = await isThreadReactedByUser({
+      chirpId: chirp._id,
+      userId: user._id,
+    });
+
+    if (isAlreadyReacted) {
+      chirp.reactions.pull({
+        user: user._id,
+      });
+    } else {
+      chirp.reactions.push({
+        user: user._id,
+      });
+    }
+
+    await chirp.save();
+
+    if (isAlreadyReacted) {
+      user.reactions.pull({
+        chirp: chirp._id,
+      });
+    } else {
+      user.reactions.push({
+        chirp: chirp._id,
+      });
+    }
+
+    await user.save();
+
+    revalidatePath(path);
+  } catch (error: any) {
+    throw new Error(`Failed to add reaction to thread: ${error.message}`);
   }
 }
 

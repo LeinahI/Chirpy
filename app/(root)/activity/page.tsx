@@ -1,4 +1,5 @@
 import { fetchUser, getActivity } from "@/lib/actions/user.actions";
+import { formatDateWithMeasure, truncateString } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,51 +7,67 @@ import { redirect } from "next/navigation";
 
 async function Page() {
   const user = await currentUser();
-
   if (!user) return null;
 
   const userInfo = await fetchUser(user.id);
-
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  //get notifs
   const activity = await getActivity(userInfo._id);
 
   return (
-    <section>
-      <h1 className="head-text mb-10">Activity</h1>
+    <>
+      <h1 className="head-text">Activity</h1>
 
       <section className="mt-10 flex flex-col gap-5">
         {activity.length > 0 ? (
           <>
-            {activity.map((activity) => (
-              <Link key={activity._id} href={`/chirp/${activity.parentId}`}>
+            {activity.map((activity: any) => (
+              <Link
+                key={activity.author._id}
+                href={`${
+                  (activity.parentId && `/chirp/${activity.parentId}`) ||
+                  `/profile/${activity.author.id}`
+                }`}
+              >
                 <article className="activity-card">
                   <Image
                     src={activity.author.image}
-                    alt="Profile picture"
+                    alt="user_logo"
                     width={20}
                     height={20}
                     className="rounded-full object-cover"
                   />
-                  <p className="!text-small-regular text-dark-1">
-                    <span className="mr-1 text-primary-500">
-                      {activity.author.name}
-                    </span>{" "}
-                    replied to your chirp
-                  </p>
+                  <ActivityComponent
+                    author={activity.author}
+                    createdAt={activity.createdAt}
+                    parentId={activity.parentId}
+                    activityType={activity.activityType}
+                    text={activity.text}
+                  />
                 </article>
               </Link>
             ))}
           </>
         ) : (
-          <p className="!text-base-regular text-light-3">
-            No acivity has occurred yet
-          </p>
+          <p className="!text-base-regular text-light-3">No activity yet</p>
         )}
       </section>
-    </section>
+    </>
   );
 }
+
+const ActivityComponent = ({ author, createdAt, activityType, text }: any) => (
+  <p className="!text-small-regular text-dark-1">
+    <Link key={author._id} href={`/profile/${author.id}`}>
+      <span className="text-primary-500">{author.name}</span>
+    </Link>{" "}
+    <>
+      {activityType === "follow" && "followed you"}
+      {activityType === "reaction" && "like your chirp"}
+      {text && `replied to your chirp: "${truncateString(text, 100)}"`}
+    </>{" "}
+    <span className="text-gray-1">~ {formatDateWithMeasure(createdAt)}</span>
+  </p>
+);
 
 export default Page;

@@ -12,7 +12,7 @@ interface Props {
   isComment?: boolean;
 }
 
-function deleteChirps({
+function DeleteChirps({
   chirpId,
   currentUserId,
   authorId,
@@ -22,12 +22,12 @@ function deleteChirps({
   const pathname = usePathname();
   const router = useRouter();
 
-  if (currentUserId !== authorId || pathname === "/") return null;
+  if (currentUserId !== authorId) return null;
 
   const handleClick = async () => {
     await deleteChirp(JSON.parse(chirpId), pathname);
     if (!parentId || !isComment) {
-      router.push("/");
+     /*  router.push("/"); */
     }
   };
   return (
@@ -42,4 +42,4 @@ function deleteChirps({
   );
 }
 
-export default deleteChirps;
+export default DeleteChirps;

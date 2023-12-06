@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { formatDateString, formatTimeString } from "@/lib/utils";
-import DeleteChirps from "../forms/DeleteChirp";
+import DeleteChirp from "../forms/DeleteChirp";
 
 interface Props {
   id: string;
@@ -174,7 +174,7 @@ const ChirpCard = ({
                   className="cursor-pointer object-contain"
                 />
               </Link>
-              <Image
+              {/* <Image
                 src="/assets/repost.svg"
                 alt="repost"
                 width={24}
@@ -187,7 +187,7 @@ const ChirpCard = ({
                 width={24}
                 height={24}
                 className="cursor-pointer object-contain"
-              />
+              /> */}
             </div>
 
             <div className="flex items-center">
@@ -220,8 +220,9 @@ const ChirpCard = ({
           </div>
         </div>
       </div>
+
       <div className="flex flex-row gap-2">
-        <DeleteChirps
+        <DeleteChirp
           chirpId={JSON.stringify(id)}
           currentUserId={currentUserId}
           authorId={author.id}
@@ -229,25 +230,8 @@ const ChirpCard = ({
           isComment={isComment}
         />
       </div>
-    </div>
 
-    {/* {!isComment && circle && (
-      <Link href={`/circles/${circle.id}`} className="mt-5 flex items-center">
-        <p className="text-subtle-medium text-gray-1">
-          {formatDateString(createdAt)}
-          {circle && ` - ${circle.name} Circle`}
-        </p>
-        &nbsp;
-        <div className="relative h-[14px] w-[14px] object-cover">
-          <Image
-            src={circle.image}
-            alt={circle.image}
-            fill
-            className="rounded-full object-cover shawdow-2xl"
-          />
-        </div>
-      </Link>
-    )} */}
+    </div>
   </article>
 );
 
