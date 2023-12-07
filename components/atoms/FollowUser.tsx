@@ -26,7 +26,7 @@ const FollowUser = ({ userId, currentUserId, isFollowing = false }: Props) => {
   return (
     <Button size="sm" className="follow-card_btn" onClick={handleClick}>
       <div className="flex cursor-pointer gap-3 rounded-lg">
-        <Image src="/assets/user.svg" alt="logout" width={16} height={16} />
+        <Image src={isFollowing ? `/assets/unfollow-wt.svg` : `/assets/follow-wt.svg`} alt="logout" width={16} height={16} />
 
         <p className="text-light-2 max-sm:hidden">
           {isFollowing ? "Unfollow" : "Follow"}

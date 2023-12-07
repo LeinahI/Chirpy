@@ -33,8 +33,8 @@ export const sidebarLinks = [
 
 export const profileTabs = [
   { value: "chirps", label: "Chirps", icon: "/assets/reply-wt.svg" },
-  { value: "followers", label: "Followers", icon: "/assets/members.svg" }, /* NEW */
-  { value: "following", label: "Following", icon: "/assets/members.svg" }, /* NEW */
+  { value: "followers", label: "Followers", icon: "/assets/follow-wt.svg" }, /* NEW */
+  { value: "following", label: "Following", icon: "/assets/following-wt.svg" }, /* NEW */
   /* { value: "replies", label: "Replies", icon: "/assets/members-wt.svg" }, */
 ];
 
