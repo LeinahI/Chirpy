@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const followerSchema = new mongoose.Schema({
+const followerSchema = new mongoose.Schema({ /* NEW */
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -43,7 +43,7 @@ const circleSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
-  followers: [followerSchema],
+  followers: [followerSchema], /* NEW */
 });
 
 circleSchema.virtual("membersCount").get(function () {
@@ -54,7 +54,7 @@ circleSchema.virtual("chirpsCount").get(function () {
   return this.chirps.length;
 });
 
-circleSchema.virtual("followersCount").get(function () {
+circleSchema.virtual("followersCount").get(function () { /* NEW */
   return this.followers.length;
 });
 

@@ -36,7 +36,7 @@ async function Page({
 
         <div className="mt-9 flex flex-wrap gap-9 ">
           {result.circles.length === 0 ? (
-            <p className="no-result">No circles exists</p>
+            <p className="no-result">No circles exists yet</p>
           ) : (
             <>
               {result.circles.map((circle) => (

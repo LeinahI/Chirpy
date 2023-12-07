@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import FollowUser from "../atoms/FollowUser"; /* new */
 
 interface Props {
   accountId: string;
@@ -9,6 +10,7 @@ interface Props {
   imgUrl: string;
   bio: string;
   type?: string;
+  isFollowing?: boolean; /* new */
 }
 
 const ProfileHeader = ({
@@ -19,6 +21,7 @@ const ProfileHeader = ({
   imgUrl,
   bio,
   type,
+  isFollowing, /* new */
 }: Props) => {
   return (
     <div className="flex w-full flex-col justify-start">
@@ -33,26 +36,36 @@ const ProfileHeader = ({
             />
           </div>
           <div className="flex-1">
-            <h2 className="text-left text-heading3-bold text-dark-1">
-              {name}
-            </h2>
+            <h2 className="text-left text-heading3-bold text-dark-1">{name}</h2>
             <p className="text-base-medium text-gray-1">@{username}</p>
           </div>
         </div>
-        {/* Edit your profile */}
-        {accountId === authUserId && type !== "Circle" && (
-          <Link href="/profile/edit">
-            <div className="flex cursor-pointer gap-3 rounded-lg bg-primary-500 px-4 py-2">
-              <Image
-                src="/assets/edit.svg"
-                alt="logout"
-                width={16}
-                height={16}
-              />
+        {/* Edit your profile & Follow user*/}
+        {type !== "Circle" && (
+          <div className="flex flex-row gap-2">
+            <>
+              {accountId === authUserId ? (
+                <Link href="/profile/edit">
+                  <div className="flex cursor-pointer gap-3 rounded-lg bg-primary-500 px-4 py-2">
+                    <Image
+                      src="/assets/edit.svg"
+                      alt="logout"
+                      width={16}
+                      height={16}
+                    />
 
-              <p className="text-light-1 max-sm:hidden">Edit</p>
-            </div>
-          </Link>
+                    <p className="text-light-1 max-sm:hidden">Edit</p>
+                  </div>
+                </Link>
+              ) : ( 
+                <FollowUser /* new */
+                  userId={accountId}
+                  currentUserId={authUserId}
+                  isFollowing={isFollowing}
+                />
+              )}
+            </>
+          </div>
         )}
       </div>
 

@@ -8,7 +8,7 @@ import User from "../models/user.model";
 import Chirp from "../models/chirp.model";
 import Circle from "../models/circle.model";
 
-export async function isThreadReactedByUser({
+export async function isChirpReactedByUser({
   chirpId,
   userId,
 }: {
@@ -239,7 +239,7 @@ export async function addReactToChirp({
       throw new Error("Chirp not found");
     }
 
-    const isAlreadyReacted = await isThreadReactedByUser({
+    const isAlreadyReacted = await isChirpReactedByUser({
       chirpId: chirp._id,
       userId: user._id,
     });
@@ -270,7 +270,7 @@ export async function addReactToChirp({
 
     revalidatePath(path);
   } catch (error: any) {
-    throw new Error(`Failed to add reaction to thread: ${error.message}`);
+    throw new Error(`Failed to add reaction to chirp: ${error.message}`);
   }
 }
 

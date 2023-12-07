@@ -49,20 +49,20 @@ async function Page() {
             ))}
           </>
         ) : (
-          <p className="!text-base-regular text-light-3">No activity yet</p>
+          <p className="!text-base-regular text-dark-1">No activity existing yet</p>
         )}
       </section>
     </>
   );
 }
 
-const ActivityComponent = ({ author, createdAt, activityType, text }: any) => (
+const ActivityComponent = ({ author, createdAt, activityType, text }: any) => ( /* NEW */
   <p className="!text-small-regular text-dark-1">
     <Link key={author._id} href={`/profile/${author.id}`}>
       <span className="text-primary-500">{author.name}</span>
     </Link>{" "}
     <>
-      {activityType === "follow" && "followed you"}
+      {activityType === "follow" && "followed you"} {/* Done */}
       {activityType === "reaction" && "like your chirp"}
       {text && `replied to your chirp: "${truncateString(text, 100)}"`}
     </>{" "}

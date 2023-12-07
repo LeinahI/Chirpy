@@ -4,3 +4,15 @@ To add this on Github
 1. git add ./
 2. git commit -m 'Message of your commit'
 3. git push
+
+Add follow-following
+globals.css = DONE
+page.tsx/activity = DONE
+page.tsx/profile/[id] = DONE
+FollowUser = DONE
+ProfileHeader = DONE
+index.js = DONE
+thread.actions = it's for fetchExplore & not important to this system
+user.actions = 
+community.model = DONE
+user.model = DONE
