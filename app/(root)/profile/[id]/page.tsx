@@ -57,18 +57,17 @@ async function Page({ params }: { params: { id: string } }) {
                     {userInfo?.chirps?.length}
                   </p>
                 )}
-                
+
                 {tab.label === "Followers" && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                  <p className="ml-1 rounded-sm bg-light-2 px-2 py-1 !text-tiny-medium text-dark-1">
                     {userInfo.followersCount}
                   </p>
                 )}
                 {tab.label === "Following" && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                  <p className="ml-1 rounded-sm bg-light-2 px-2 py-1 !text-tiny-medium text-dark-1">
                     {userInfo.followingCount}
                   </p>
                 )}
-                
               </TabsTrigger>
             ))}
           </TabsList>
@@ -90,20 +89,22 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsContent>
 
           <TabsContent value="followers" className="w-full">
-            <div className="mt-9 flex flex-col gap-10">
+            <div className="mt-9 flex flex-col gap-5">
               {userInfo.followersCount === 0 ? (
                 <p className="no-result">No users found</p>
               ) : (
                 <>
                   {followers.map((follower: any) => (
-                    <UserCard
-                      key={follower.id}
-                      id={follower.id}
-                      name={follower.name}
-                      username={follower.username}
-                      imgUrl={follower.image}
-                      personType="User"
-                    />
+                    <div className="rounded-lg bg-light-2 px-7 py-4">
+                      <UserCard
+                        key={follower.id}
+                        id={follower.id}
+                        name={follower.name}
+                        username={follower.username}
+                        imgUrl={follower.image}
+                        personType="User"
+                      />
+                    </div>
                   ))}
                 </>
               )}
@@ -111,20 +112,22 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsContent>
 
           <TabsContent value="following" className="w-full">
-            <div className="mt-9 flex flex-col gap-10">
+            <div className="mt-9 flex flex-col gap-5">
               {userInfo.followingCount === 0 ? (
                 <p className="no-result">No users found</p>
               ) : (
                 <>
                   {following.map((following: any) => (
-                    <UserCard
-                      key={following.id}
-                      id={following.id}
-                      name={following.name}
-                      username={following.username}
-                      imgUrl={following.image}
-                      personType="User"
-                    />
+                    <div className="rounded-lg bg-light-2 px-7 py-4">
+                      <UserCard
+                        key={following.id}
+                        id={following.id}
+                        name={following.name}
+                        username={following.username}
+                        imgUrl={following.image}
+                        personType="User"
+                      />
+                    </div>
                   ))}
                 </>
               )}

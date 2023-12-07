@@ -44,6 +44,12 @@ async function Page({ params }: { params: { id: string } }) {
                     {circleDetails?.chirps?.length}
                   </p>
                 )}
+
+                {tab.label === "Members" && (
+                  <p className="ml-1 rounded-sm bg-light-2 px-2 py-1 !text-tiny-medium text-dark-1">
+                    {circleDetails?.members?.length}
+                  </p>
+                )}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -66,18 +72,20 @@ async function Page({ params }: { params: { id: string } }) {
           </TabsContent>
 
           {/* Members */}
-          <TabsContent value="members" className="w-full text-dark-1">
+          <TabsContent value="members" className="w-full text-dark-1 ">
             {/* shows members list */}
-            <section className="mt-9 flex flex-col gap-10">
+            <section className="mt-9 flex flex-col gap-5  ">
               {circleDetails.members.map((member: any) => (
-                <UserCard
-                  key={member.id}
-                  id={member.id}
-                  name={member.name}
-                  username={member.username}
-                  imgUrl={member.image}
-                  personType="User"
-                />
+                <div className="rounded-lg bg-light-2 px-7 py-4">
+                  <UserCard
+                    key={member.id}
+                    id={member.id}
+                    name={member.name}
+                    username={member.username}
+                    imgUrl={member.image}
+                    personType="User"
+                  />
+                </div>
               ))}
             </section>
           </TabsContent>
