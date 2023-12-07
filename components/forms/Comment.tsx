@@ -60,9 +60,9 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                 <Image
                   src={currentUserImg}
                   alt="Profile Image"
-                  width={48}
-                  height={44.4167}
-                  className="rounded-full relative h-[44.4167px] w-[48px] object-cover"
+                  height={44}
+                  width={44}
+                  className="relative h-[44px] w-[44px] object-cover  rounded-full"
                 />
               </FormLabel>
               <FormControl className="border-primary-500 bg-transparent">

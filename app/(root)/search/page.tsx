@@ -30,27 +30,29 @@ async function Page({
 
       <Searchbar routeType="search" />
 
-      <div className="mt-14 flex flex-col gap-9">
+      <div className="mt-5 flex flex-col gap-5">
         {result.users.length === 0 ? (
           <p className="no-result">No users exists</p>
         ) : (
           <>
             {result.users.map((person) => (
-              <UserCard
-                key={person.id}
-                id={person.id}
-                name={person.name}
-                username={person.username}
-                imgUrl={person.image}
-                personType="User"
-              />
+              <div className="search-card">
+                <UserCard
+                  key={person.id}
+                  id={person.id}
+                  name={person.name}
+                  username={person.username}
+                  imgUrl={person.image}
+                  personType="User"
+                />
+              </div>
             ))}
           </>
         )}
       </div>
 
       <Pagination
-        path='search'
+        path="search"
         pageNumber={searchParams?.page ? +searchParams.page : 1}
         isNext={result.isNext}
       />

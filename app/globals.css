@@ -18,6 +18,10 @@
     @apply flex items-center gap-2 rounded-md bg-light-2 px-7 py-4;
   }
 
+  /* Search */
+  .search-card {
+    @apply rounded-md bg-light-2 px-7 py-4;
+  }
   /* No Result */
   .no-result {
     @apply text-center !text-base-regular text-dark-1;
@@ -153,13 +157,15 @@
 
 /* Comment Form */
 .comment-form {
-  @apply mt-10 flex items-center gap-4 border-y border-y-primary-500 py-5 max-xs:flex-col !important;
+  @apply mt-10 flex items-center gap-4 rounded-lg bg-light-2 px-7 py-5 border-y-primary-500  max-xs:flex-col !important;
 }
 
 .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
 }
 
-.follow-card_btn { /* Done */
+.follow-card_btn {
+  /* Done */
   @apply rounded-lg bg-primary-500 px-3 py-1.5 text-small-regular !text-light-1 !important;
 }
+

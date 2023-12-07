@@ -27,7 +27,7 @@ async function Page() {
       <h1 className='head-text'>Edit Profile</h1>
       <p className='mt-3 text-base-regular text-dark-1'>Make any changes</p>
 
-      <section className='mt-12'>
+      <section className='mt-5 rounded-lg bg-light-2 px-7 py-4'>
         <AccountProfile user={userData} btnTitle='Continue' />
       </section>
     </>

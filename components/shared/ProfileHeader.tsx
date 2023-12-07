@@ -24,7 +24,7 @@ const ProfileHeader = ({
   isFollowing, /* new */
 }: Props) => {
   return (
-    <div className="flex w-full flex-col justify-start">
+    <div className="flex w-full flex-col justify-start rounded-lg bg-light-2 px-7 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="relative h-20 w-20 object-cover">
@@ -71,8 +71,6 @@ const ProfileHeader = ({
 
       {/* TODO: Circle */}
       <p className="mt-6 max-w-lg text-base-regular text-dark-1">{bio}</p>
-
-      <div className="mt-12 h-0.5 w-full bg-primary-500" />
     </div>
   );
 };

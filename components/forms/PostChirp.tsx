@@ -53,7 +53,7 @@ function PostChirp({ userId }: Props) {
   return (
     <Form {...form}>
       <form
-        className='mt-5 flex flex-col justify-start gap-10'
+        className='mt-5 flex flex-col justify-start gap-10 rounded-lg bg-light-2 px-7 py-4'
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -63,7 +63,7 @@ function PostChirp({ userId }: Props) {
             <FormItem className='flex w-full flex-col gap-3'>
               <FormControl className='no-focus border border-primary-500 bg-light-2 text-dark-1'>
                 <Textarea 
-                rows={15} 
+                rows={8} 
                 {...field} 
                 className="resize-none"
                 placeholder={`Share your thoughts...`}

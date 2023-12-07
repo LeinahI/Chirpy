@@ -45,7 +45,7 @@ const ChirpCard = ({
       isComment ? "px-0 xs:px-7" : "bg-light-2 p-7"
     }`}
   >
-    <div className="flex items-start justify-between">
+    <div className={`flex items-start justify-between`}>
       <div className="flex w-full flex-1 flex-row gap-4">
         <div className="flex flex-col items-center">
           {/* Show Profile Icon if not in circle  */}
@@ -156,7 +156,8 @@ const ChirpCard = ({
           {/* The User Post */}
           <p className="mt-2 text-small-regular text-dark-1">{content}</p>
 
-          <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
+          {/* Clickable icons */}
+          <div className={`${isComment && "mb-5"} mt-5 flex flex-col gap-3`}>
             <div className="flex gap-3.5">
               <Image
                 src="/assets/heart-gray.svg"
@@ -174,24 +175,10 @@ const ChirpCard = ({
                   className="cursor-pointer object-contain"
                 />
               </Link>
-              {/* <Image
-                src="/assets/repost.svg"
-                alt="repost"
-                width={24}
-                height={24}
-                className="cursor-pointer object-contain"
-              />
-              <Image
-                src="/assets/share.svg"
-                alt="share"
-                width={24}
-                height={24}
-                className="cursor-pointer object-contain"
-              /> */}
             </div>
 
             <div className="flex items-center">
-              {!isComment && comments.length > 0 && (
+              { comments.length > 0 && (
                 <>
                   <div className="ml-1 flex items-center gap-2">
                     {comments.slice(0, 2).map((comment, index) => (
@@ -230,7 +217,6 @@ const ChirpCard = ({
           isComment={isComment}
         />
       </div>
-
     </div>
   </article>
 );
