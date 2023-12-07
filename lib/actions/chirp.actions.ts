@@ -79,6 +79,34 @@ interface Params {
   path: string;
 }
 
+export async function editChirp({
+  chirpId /* New */,
+  text,
+  path,
+}: {
+  chirpId: string;
+  text: string;
+  path: string;
+}) {
+  try {
+    connectToDB();
+
+    const chirp = await Chirp.findById(chirpId);
+
+    if (!chirp) {
+      throw new Error("Chirp not found");
+    }
+
+    chirp.text = text;
+
+    await chirp.save();
+
+    revalidatePath(path);
+  } catch (err: any) {
+    throw new Error(`Failed to edit chirp: ${err.message}`);
+  }
+}
+
 export async function createChirp({ text, author, circleId, path }: Params) {
   try {
     connectToDB();

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { formatDateString, formatTimeString } from "@/lib/utils";
 import DeleteChirp from "../forms/DeleteChirp";
+import EditChirp from "../atoms/EditChirp";
 
 interface Props {
   id: string;
@@ -178,7 +179,7 @@ const ChirpCard = ({
             </div>
 
             <div className="flex items-center">
-              { comments.length > 0 && (
+              {comments.length > 0 && (
                 <>
                   <div className="ml-1 flex items-center gap-2">
                     {comments.slice(0, 2).map((comment, index) => (
@@ -215,6 +216,11 @@ const ChirpCard = ({
           authorId={author.id}
           parentId={parentId}
           isComment={isComment}
+        />
+        <EditChirp
+          chirpId={JSON.stringify(id)}
+          currentUserId={currentUserId}
+          authorId={author.id}
         />
       </div>
     </div>

@@ -3,19 +3,19 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  threadId: string;
+  chirpId: string;
   currentUserId: string;
   authorId: string;
 }
 
-const EditThread = ({ threadId, currentUserId, authorId }: Props) => {
+const EditChirp = ({ chirpId, currentUserId, authorId }: Props) => { /* NEW */
   if (currentUserId !== authorId) return null;
 
   return (
-    <Link href={`/edit-thread/${JSON.parse(threadId)}`}>
+    <Link href={`/edit-chirp/${JSON.parse(chirpId)}`}>
       <Image
-        src="/assets/edit.svg"
-        alt="edit thread"
+        src="/assets/edit-yl.svg"
+        alt="edit chirp"
         width={18}
         height={18}
         className="cursor-pointer object-contain"
@@ -24,4 +24,4 @@ const EditThread = ({ threadId, currentUserId, authorId }: Props) => {
   );
 };
 
-export default EditThread;
+export default EditChirp;
