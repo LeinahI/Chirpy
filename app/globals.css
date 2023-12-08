@@ -99,25 +99,39 @@
   .css-invert {
     @apply invert-[50%] brightness-200;
   }
-
+  /* Custom Scrollbar Chrome, Edge, Safari */
+  :root {
+    --primary: #f2b705;
+    --secondary: #f29f05;
+    --light-2: #F4EFE1;
+  }
   .custom-scrollbar::-webkit-scrollbar {
-    width: 3px;
+    width: 10px;
     height: 3px;
     border-radius: 2px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #09090a;
+    background: var(--light-2);
+    border-radius: 2px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5c5c7b;
+    background: var(--primary);
     border-radius: 50px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #7878a3;
+    background: var(--secondary);
   }
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--light-2);
+    
+  }
+
+  
 }
 
 /* Clerk Responsive fix */
@@ -168,4 +182,3 @@
   /* Done */
   @apply rounded-lg bg-primary-500 px-3 py-1.5 text-small-regular !text-light-1 !important;
 }
-

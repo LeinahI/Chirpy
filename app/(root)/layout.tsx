@@ -1,13 +1,13 @@
 /* import type { Metadata } from "next"; */
 import { Inter } from "next/font/google";
 import "../globals.css";
-
 import Topbar from "@/components/shared/Topbar";
 import LeftSidebar from "@/components/shared/LeftSidebar";
 /* import RightSidebar from "@/components/shared/RightSidebar"; */
 import Bottombar from "@/components/shared/Bottombar";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+
 
 const mainFont = Inter({ subsets: ["latin"] });
 
@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={mainFont.className}>
+        <body className={`${mainFont.className} custom-scrollbar`}>
           <Topbar />
           <main className="flex flex-row">
             <LeftSidebar />

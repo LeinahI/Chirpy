@@ -108,6 +108,7 @@ export async function editChirp({
 }
 
 export async function createChirp({ text, author, circleId, path }: Params) {
+  console.log("Chirp Text Received:", text);
   try {
     connectToDB();
 

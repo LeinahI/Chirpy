@@ -173,19 +173,19 @@ module.exports = {
     },
     extend: {
       colors: {
-        "primary-500": "#F2B705", 
-        "secondary-500": "#F29F05", 
-        "accent-500": "#F28705", 
+        "primary-500": "#F2B705",
+        "secondary-500": "#F29F05",
+        "accent-500": "#F28705",
         blue: "#0095F6",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
-        "dark-1": "#303030", /* Text */
+        "dark-1": "#303030" /* Text */,
         "dark-2": "#7878A3",
         "dark-3": "#5C5C7B",
-        "gray-1": "#8F8D86", /* Subheading */
-        "light-1": "#FFFAEB", /* BG */
-        "light-2": "#F4EFE1", /* Sidebars */
+        "gray-1": "#8F8D86" /* Subheading */,
+        "light-1": "#FFFAEB" /* BG */,
+        "light-2": "#F4EFE1" /* Sidebars */,
         "light-3": "#F7F2E4",
-        "light-4": "#F6E2B7", /* is Active */
+        "light-4": "#F6E2B7" /* is Active */,
         glassmorphism: "rgba(16, 16, 18, 0.60)",
       },
       boxShadow: {
@@ -211,5 +211,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 };
