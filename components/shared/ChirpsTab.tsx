@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import ChirpCard from "../cards/ChirpCard";
 import { fetchCircleChirps } from "@/lib/actions/circle.actions";
 import { currentUser } from "@clerk/nextjs";
+import { getReactionsData } from "@/lib/actions/chirp.actions";
 
 interface Result {
   name: string;
@@ -59,11 +60,16 @@ const ChirpsTab = async ({ currentUserId, accountId, accountType }: Props) => {
     const userInfo = await fetchUser(user.id);
     if (!userInfo?.onboarded) redirect("/onboarding");
 
-    // Handle the case where there is no result
+    const reactionsData = await getReactionsData({
+      userId: userInfo._id,
+      posts: result.chirps,
+    });
+
+    const { childrenReactions, childrenReactionState } = reactionsData;
 
     return (
       <section className="mt-9 flex flex-col gap-10">
-        {result.chirps.map((chirp) => (
+        {result.chirps.map((chirp, idx) => (
           <ChirpCard
             key={chirp._id}
             id={chirp._id}
@@ -96,6 +102,8 @@ const ChirpsTab = async ({ currentUserId, accountId, accountType }: Props) => {
             }
             createdAt={chirp.createdAt}
             comments={chirp.children}
+            reactions={childrenReactions[idx].users}
+            reactState={childrenReactionState[idx]}
           />
         ))}
       </section>

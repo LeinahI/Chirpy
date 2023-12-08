@@ -1,6 +1,6 @@
 import ChirpCard from "@/components/cards/ChirpCard";
 import Comment from "@/components/forms/Comment";
-import { fetchChirpById } from "@/lib/actions/chirp.actions";
+import { fetchChirpById, getReactionsData } from "@/lib/actions/chirp.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -16,6 +16,19 @@ async function page({ params }: { params: { id: string } }) {
 
   const chirpy = await fetchChirpById(params.id);
 
+  const reactionsData = await getReactionsData({
+    userId: userInfo._id,
+    posts: chirpy.children,
+    parentId: chirpy._id,
+  });
+
+  const {
+    parentReactions,
+    parentReactionState,
+    childrenReactions,
+    childrenReactionState,
+  } = reactionsData;
+
   return (
     <section className="relative">
       <div>
@@ -29,6 +42,8 @@ async function page({ params }: { params: { id: string } }) {
           circle={chirpy.circle}
           createdAt={chirpy.createdAt}
           comments={chirpy.children}
+          reactions={(parentReactions as { users: any[] }).users} // Type assertion here
+          reactState={parentReactionState}
         />
       </div>
 
@@ -41,7 +56,7 @@ async function page({ params }: { params: { id: string } }) {
       </div>
 
       <div className="mt-10">
-        {chirpy.children.map((childItem: any) => (
+        {chirpy.children.map((childItem: any, idx: number) => (
           <ChirpCard
             key={childItem._id}
             id={childItem._id}
@@ -52,6 +67,8 @@ async function page({ params }: { params: { id: string } }) {
             circle={childItem.community}
             createdAt={childItem.createdAt}
             comments={childItem.children}
+            reactions={childrenReactions[idx].users}
+            reactState={childrenReactionState[idx]}
             isComment
           />
         ))}

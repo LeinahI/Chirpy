@@ -4,6 +4,7 @@ import Link from "next/link";
 import { formatDateString, formatTimeString } from "@/lib/utils";
 import DeleteChirp from "../forms/DeleteChirp";
 import EditChirp from "../atoms/EditChirp";
+import ReactChirp from "../atoms/ReactChirp";
 
 interface Props {
   id: string;
@@ -27,7 +28,15 @@ interface Props {
       image: string;
     };
   }[];
+  reactions: {
+    image: string;
+    _id: string;
+    id: string;
+    name: string;
+    username: string;
+  }[];
   isComment?: boolean;
+  reactState?: boolean;
 }
 
 const ChirpCard = ({
@@ -39,7 +48,9 @@ const ChirpCard = ({
   circle,
   createdAt,
   comments,
+  reactions,
   isComment,
+  reactState,
 }: Props) => (
   <article
     className={`flex w-full flex-col rounded-xl ${
@@ -160,12 +171,12 @@ const ChirpCard = ({
           {/* Clickable icons */}
           <div className={`${isComment && "mb-5"} mt-5 flex flex-col gap-3`}>
             <div className="flex gap-3.5">
-              <Image
-                src="/assets/heart-gray.svg"
-                alt="like"
-                width={24}
-                height={24}
-                className="cursor-pointer object-contain"
+              <ReactChirp
+                chirpId={id}
+                currentUserId={currentUserId}
+                interactState={reactState}
+                parentId={parentId}
+                isComment={isComment}
               />
               <Link href={`/chirp/${id}`}>
                 <Image
@@ -177,38 +188,38 @@ const ChirpCard = ({
                 />
               </Link>
             </div>
-
-            <div className="flex items-center">
-              {comments.length > 0 && (
+            {/* Line 118 sa ThreadCard */}
+            <div className="flex flex-row gap-2">
+              {isComment && (
                 <>
-                  <div className="ml-1 flex items-center gap-2">
-                    {comments.slice(0, 2).map((comment, index) => (
-                      <Image
-                        key={index}
-                        src={comment.author.image}
-                        alt={`user_${index}`}
-                        width={24}
-                        height={24}
-                        className={`${
-                          index !== 0 && "-ml-5"
-                        } rounded-full h-[24px] w-[24px] object-cover`}
-                      />
-                    ))}
-
+                  {comments.length > 0 && (
                     <Link href={`/chirp/${id}`}>
-                      <p className="text-subtle-medium text-gray-1">
-                        {comments.length} repl
-                        {comments.length > 1 ? "ies" : "y"}
+                      <p className="mt-1 text-subtle-medium text-gray-1">
+                        {comments.length}{" "}
+                        {comments.length > 1 ? "replies" : "reply"}
                       </p>
                     </Link>
-                  </div>
+                  )}
+
+                  {comments.length > 0 && reactions.length > 0 && (
+                    <p className="mt-1 text-subtle-medium text-gray-1">•</p>
+                  )}
+
+                  {reactions.length > 0 && (
+                    <Link href={`/chirp/reactions/${id}`}>
+                      <p className="mt-1 text-subtle-medium text-gray-1">
+                        {reactions.length}{" "}
+                        {reactions.length > 1 ? "likes" : "like"}
+                      </p>
+                    </Link>
+                  )}
                 </>
               )}
             </div>
           </div>
         </div>
       </div>
-
+      {/* Line 148 sa ThreadCard */}
       <div className="flex flex-row gap-2">
         <DeleteChirp
           chirpId={JSON.stringify(id)}
@@ -223,6 +234,32 @@ const ChirpCard = ({
           authorId={author.id}
         />
       </div>
+    </div>
+
+    {/* Line 164 sa ThreadCard */}
+    <div className="flex flex-row gap-2">
+      {reactions.length > 0 && (
+        <div className="ml-1 flex items-center gap-2">
+          {reactions.slice(0, 2).map((reaction, index) => (
+            <Image
+              key={index}
+              src={reaction.image}
+              alt={`user_${index}`}
+              width={24}
+              height={24}
+              className={`${
+                index !== 0 && "-ml-5"
+              } rounded-full h-[24px] w-[24px] object-cover`}
+            />
+          ))}
+
+          <Link href={`/chirp/reactions/${id}`}>
+            <p className="mt-1 text-subtle-medium text-gray-1">
+              {reactions.length} {reactions.length > 1 ? "likes" : "like"}
+            </p>
+          </Link>
+        </div>
+      )}
     </div>
   </article>
 );

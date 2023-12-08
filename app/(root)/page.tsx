@@ -1,5 +1,5 @@
 import ChirpCard from "@/components/cards/ChirpCard";
-import { fetchChirps } from "@/lib/actions/chirp.actions";
+import { fetchChirps, getReactionsData } from "@/lib/actions/chirp.actions";
 import { fetchUser } from "@/lib/actions/user.actions";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
@@ -13,6 +13,13 @@ export default async function Home() {
   const userInfo = await fetchUser(user.id);
   if (!userInfo?.onboarded) redirect("/onboarding");
 
+  const reactionsData = await getReactionsData({
+    userId: userInfo._id,
+    posts: result.chirps,
+  });
+
+  const { childrenReactions, childrenReactionState } = reactionsData;
+
   return (
     <>
       <h1 className="head-text text-left">Home</h1>
@@ -22,7 +29,7 @@ export default async function Home() {
           <p className="no-result">No chirps found</p>
         ) : (
           <>
-            {result.chirps.map((chirp) => (
+            {result.chirps.map((chirp, idx) => (
               <ChirpCard
                 key={chirp._id}
                 id={chirp._id}
@@ -33,6 +40,8 @@ export default async function Home() {
                 circle={chirp.circle}
                 createdAt={chirp.createdAt}
                 comments={chirp.children}
+                reactions={childrenReactions[idx].users}
+                reactState={childrenReactionState[idx]}
               />
             ))}
           </>

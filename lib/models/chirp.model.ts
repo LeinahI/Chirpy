@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new mongoose.Schema({ /* NEW */
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -32,7 +32,7 @@ const chirpSchema = new mongoose.Schema({
   parentId: {
     type: String,
   },
-  reactions: [reactionSchema],
+  reactions: [reactionSchema], /* NEW */
   children: [
     /* Replies and recusion will occur */
     {
@@ -42,7 +42,7 @@ const chirpSchema = new mongoose.Schema({
   ],
 });
 
-chirpSchema.virtual("reactionsCount").get(function () {
+chirpSchema.virtual("reactionsCount").get(function () { /* NEW */
   return this.reactions.length;
 });
 

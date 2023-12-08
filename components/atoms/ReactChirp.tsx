@@ -3,18 +3,18 @@
 import Image from "next/image";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { addReactToThread } from "@/lib/actions/thread.actions";
+import { addReactToChirp } from "@/lib/actions/chirp.actions";
 
 interface Props {
-  threadId: string;
+  chirpId: string;
   currentUserId: string;
   interactState?: boolean;
   isComment?: boolean;
   parentId?: string | null;
 }
 
-const ReactThread = ({
-  threadId,
+const ReactChirp = ({
+  chirpId,
   currentUserId,
   interactState = false,
   isComment = false,
@@ -23,8 +23,8 @@ const ReactThread = ({
   const pathname = usePathname();
 
   const handleClick = async () => {
-    await addReactToThread({
-      threadId,
+    await addReactToChirp({
+      chirpId,
       userId: currentUserId,
       path: pathname,
     });
@@ -32,7 +32,7 @@ const ReactThread = ({
 
   return (
     <Image
-      src={`/assets/heart-${interactState ? "filled" : "gray"}.svg`}
+      src={`/assets/heart-${interactState ? "filled" : "stroke"}.svg`}
       alt="heart"
       width={24}
       height={24}
@@ -42,4 +42,4 @@ const ReactThread = ({
   );
 };
 
-export default ReactThread;
+export default ReactChirp;

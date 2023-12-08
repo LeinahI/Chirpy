@@ -69,7 +69,7 @@ const ActivityComponent = (
     </DynamicLink>{" "}
     <>
       {activityType === "follow" && "followed you"} {/* Done */}
-      {activityType === "reaction" && "like your chirp"}
+      {activityType === "reaction" && "liked your chirp"}{/* NEW */}
       {text && `replied to your chirp: "${truncateString(text, 15)}"`}
     </>{" "}
     <span className="text-gray-1">~ {formatDateWithMeasure(createdAt)}</span>

@@ -281,19 +281,43 @@ export async function getActivity(userId: string) {
       []
     );
 
-    /* const reactions = userChirps.reduce(
+    const reactions = userChirps.reduce( /* NEW */
       (acc, userChirp) => acc.concat(userChirp.reactions),
       []
-    ); */
+    );
 
-    const [/* reactionsUsers, */ followersUsers] = await Promise.all([
-      /* User.find({ _id: { $in: reactions.map((reaction) => reaction.user) } }), */
+    const [reactionsUsers, followersUsers] = await Promise.all([ /* NEW */
+      User.find({
+        _id: {
+          $in: reactions.map((reaction: { user: any; }) => reaction.user),
+        },
+      }),
       User.find({
         _id: {
           $in: user.followers.map((follower: { user: any }) => follower.user),
         },
       }),
     ]);
+
+    const reactionsData = reactions.map((reaction: { user: { toString: () => any; }; createdAt: any; }, index: any) => { /* NEW */
+      const reactingUser = reactionsUsers.find(
+        (user) => user._id.toString() === reaction.user.toString()
+      );
+
+      if (reactingUser._id.equals(userId)) return null;
+      return {
+        author: {
+          name: reactingUser.name,
+          username: reactingUser.username,
+          image: reactingUser.image,
+          _id: reactingUser._id,
+          id: reactingUser.id,
+        },
+        createdAt: reaction.createdAt,
+        parentId: userChirps[0]._id.toString(),
+        activityType: "reaction",
+      };
+    });
 
     const followersData = user.followers.map(
       (follower: { user: { toString: () => any }; createdAt: any }) => {
@@ -316,7 +340,7 @@ export async function getActivity(userId: string) {
       }
     );
 
-    const [replies, Followers] = await Promise.all([
+    const [replies, reactionsAndFollowers] = await Promise.all([
       Chirp.find({
         _id: { $in: childChirpIds },
         author: { $ne: userId },
@@ -325,19 +349,10 @@ export async function getActivity(userId: string) {
         model: User,
         select: "name username image id _id",
       }),
-      [].concat(followersData)
+      reactionsData.concat(followersData),
     ]);
 
-/*     const replies = await Chirp.find({
-      _id: { $in: childChirpIds },
-      author: { $ne: userId },
-    }).populate({
-      path: "author",
-      model: User,
-      select: "name image id _id",
-    }); */
-
-    const activity = [...replies, ...Followers]
+    const activity = [...replies, ...reactionsAndFollowers]
       .filter((i) => i !== null)
       .sort((a, b) => b?.createdAt - a?.createdAt);
 

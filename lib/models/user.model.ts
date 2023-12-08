@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 /* FollowerSchema */
-const followerSchema = new mongoose.Schema({ /* NEW */
+const followerSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -12,9 +12,8 @@ const followerSchema = new mongoose.Schema({ /* NEW */
   },
 });
 
-/* ReactionSchema */
-const reactionSchema = new mongoose.Schema({ 
-  thread: {
+const reactionSchema = new mongoose.Schema({  /* NEW */
+  chirp: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Chirp",
   },
@@ -40,15 +39,15 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   bio: String,
-  followers: [followerSchema], /* NEW */
-  following: [followerSchema], /* NEW */
+  followers: [followerSchema], 
+  following: [followerSchema], 
   chirps: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Chirp",
     },
   ],
-  reactions: [reactionSchema],
+  reactions: [reactionSchema], /* NEW */
   onboarded: {
     type: Boolean,
     default: false,
@@ -77,7 +76,7 @@ userSchema.virtual("circlesCount").get(function () {
   return this.circles.length;
 });
 
-userSchema.virtual("reactionsCount").get(function () {
+userSchema.virtual("reactionsCount").get(function () { /* NEW */
   return this.reactions.length;
 });
 

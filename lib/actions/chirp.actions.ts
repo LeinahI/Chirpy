@@ -7,6 +7,7 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Chirp from "../models/chirp.model";
 import Circle from "../models/circle.model";
+import { fetchUsers, /* getUserFollowersIds */ } from "./user.actions";
 
 export async function isChirpReactedByUser({
   chirpId,
@@ -25,10 +26,31 @@ export async function isChirpReactedByUser({
     );
 
     return !!isReacted;
-  } catch (error: any) {
+  } catch (err: any) {
     throw new Error(
-      `Failed to check if chirp is reacted by user: ${error.message}`
+      `Failed to check if chirp is reacted by user: ${err.message}`
     );
+  }
+}
+
+export async function getReactedUsersByChirp(chirpId: string) {
+  try {
+    connectToDB();
+
+    const chirp = await Chirp.findOne({ _id: chirpId });
+
+    const reactedUsersIds = chirp.reactions.map(
+      (reaction: any) => reaction.user
+    );
+
+    const reactedUsers = await fetchUsers({
+      userId: "INVALID_USER_ID",
+      userIds: reactedUsersIds,
+    });
+
+    return reactedUsers;
+  } catch (error: any) {
+    throw new Error(`Failed to get reacted users: ${error.message}`);
   }
 }
 
@@ -339,5 +361,80 @@ export async function addCommentToChirp(
   } catch (err) {
     console.error("Error while adding comment:", err);
     throw new Error("Unable to add comment");
+  }
+}
+
+export async function fetchPostReactions({ chirpId }: { chirpId: string }) {
+  try {
+    connectToDB();
+
+    const chirp = await Chirp.findOne({ id: chirpId });
+
+    if (!chirp) {
+      throw new Error("Chirp not found");
+    }
+
+    const reactionsUsersIds = chirp.reactions.map(
+      (reaction: any) => reaction.user
+    );
+
+    const reactions = await User.find({
+      _id: { $in: reactionsUsersIds },
+    }).select("_id id name image username");
+
+    return reactions;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch post reactions: ${error.message}`);
+  }
+}
+
+export async function getReactionsData({
+  userId,
+  posts,
+  parentId = "",
+}: {
+  userId: string;
+  posts: any[];
+  parentId?: string;
+}) {
+  try {
+    connectToDB();
+
+    const [parentReactions, parentReactionState, childrenData] =
+      await Promise.all([
+        (parentId && getReactedUsersByChirp(parentId)) || [],
+        (parentId &&
+          isChirpReactedByUser({
+            chirpId: parentId,
+            userId,
+          })) ||
+          false,
+        Promise.all(
+          posts.map(async (post) => {
+            const reactedUsers = await getReactedUsersByChirp(post._id);
+            const reactedByUser = await isChirpReactedByUser({
+              chirpId: post._id,
+              userId,
+            });
+            return { reactedUsers, reactedByUser };
+          })
+        ),
+      ]);
+
+    const childrenReactions = childrenData.map(
+      (data: any) => data.reactedUsers
+    );
+    const childrenReactionState = childrenData.map(
+      (data: any) => data.reactedByUser
+    );
+
+    return {
+      parentReactions,
+      parentReactionState,
+      childrenReactions,
+      childrenReactionState,
+    };
+  } catch (error: any) {
+    throw new Error(`Failed to get reactions data: ${error.message}`);
   }
 }

@@ -4,3 +4,16 @@ To add this on Github
 1. git add ./
 2. git commit -m 'Message of your commit'
 3. git push
+
+add heart-reaction
+page.tsx app\root = DONE CHECKED
+page.tsx app\root\activity = DONE CHECKED
+page.tsx app\root\chirp\[id] = DONE CHECKED
+page.tsx app\root\chirp\reactions\[id] = DONE
+reactChirp = DONE
+chirpCard.tsx = DONE
+chirpsTab.tsx = DONE
+chirp.actions = DONE
+user.actions = DONE
+chirp.model = DONE
+user.model = DONE
