@@ -11,7 +11,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,7 @@ import { fetchUser } from "@/lib/actions/user.actions"; /* New */
 import { CiFaceSmile } from "react-icons/ci";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface Props {
   userId: string;
@@ -37,6 +36,24 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const { organization } = useOrganization();
+  const emojiPickerRef = useRef<HTMLDivElement | null>(null); // Explicitly provide the type
+
+  useEffect(() => {
+    const handleOutsideClick = (event: { target: any }) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target)
+      ) {
+        setShowEmoji(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const form = useForm<z.infer<typeof ChirpValidation>>({
     resolver: zodResolver(ChirpValidation),
@@ -101,7 +118,10 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
                 </span>
 
                 {showEmoji && (
-                  <div className="absolute top-[100%] right-2">
+                  <div
+                    className="absolute top-[100%] right-2"
+                    ref={emojiPickerRef}
+                  >
                     <Picker
                       data={data}
                       emojiSize={20}

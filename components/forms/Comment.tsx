@@ -20,6 +20,12 @@ import Image from "next/image";
 import { addCommentToChirp } from "@/lib/actions/chirp.actions";
 //import { createChirp } from "@/lib/actions/chirp.actions";
 
+/* Emoji */
+import { CiFaceSmile } from "react-icons/ci";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { useState, useEffect, useRef } from "react";
+
 interface Props {
   chirpId: string;
   currentUserId: string;
@@ -29,6 +35,24 @@ interface Props {
 const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
   const router = useRouter();
   const pathname = usePathname();
+  const emojiPickerRef = useRef<HTMLDivElement | null>(null); // Explicitly provide the type
+
+  useEffect(() => {
+    const handleOutsideClick = (event: { target: any }) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target)
+      ) {
+        setShowEmoji(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(CommentValidation),
@@ -48,6 +72,14 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
     form.reset();
   };
 
+  const [showEmoji, setShowEmoji] = useState(false);
+  const addEmoji = (e: { unified: string }) => {
+    const sym = e.unified.split("_");
+    const codeArray: number[] = sym.map((el) => parseInt(el, 16));
+    let emoji = String.fromCodePoint(...codeArray);
+    form.setValue("chirp", form.getValues("chirp") + emoji);
+  };
+
   return (
     <Form {...form}>
       <form className="comment-form" onSubmit={form.handleSubmit(onSubmit)}>
@@ -62,18 +94,41 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                   alt="Profile Image"
                   height={44}
                   width={44}
-                  className="relative h-[44px] w-[44px] object-cover  rounded-full"
+                  className="relative h-[44px] w-[44px] object-cover rounded-full"
                 />
               </FormLabel>
-              <FormControl className="border-primary-500 bg-transparent">
-                <Input
-                  type="text"
-                  className="no-focus text-dark-1"
-                  placeholder="Share your thoughts..."
-                  autoComplete="off"
-                  {...field}
-                />
-              </FormControl>
+              <div className="w-full flex items-end relative border border-primary-500 rounded-lg">
+                <FormControl className="border-none bg-transparent">
+                  <Input
+                    type="text"
+                    className="no-focus text-dark-1"
+                    placeholder="Share your thoughts..."
+                    autoComplete="off"
+                    {...field}
+                  />
+                </FormControl>
+                <span
+                  className="pr-2 py-3 cursor-pointer hover:text-primary-500"
+                  onClick={() => setShowEmoji(!showEmoji)}
+                >
+                  <CiFaceSmile />
+                </span>
+
+                {showEmoji && (
+                  <div
+                    className="absolute top-[100%] right-2"
+                    ref={emojiPickerRef}
+                  >
+                    <Picker
+                      data={data}
+                      emojiSize={20}
+                      emojiButtonSize={28}
+                      onEmojiSelect={addEmoji}
+                      maxFrequentRows={0}
+                    />
+                  </div>
+                )}
+              </div>
             </FormItem>
           )}
         />
