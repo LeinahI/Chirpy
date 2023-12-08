@@ -70,7 +70,7 @@ const ActivityComponent = (
     <>
       {activityType === "follow" && "followed you"} {/* Done */}
       {activityType === "reaction" && "like your chirp"}
-      {text && `replied to your chirp: "${truncateString(text, 100)}"`}
+      {text && `replied to your chirp: "${truncateString(text, 15)}"`}
     </>{" "}
     <span className="text-gray-1">~ {formatDateWithMeasure(createdAt)}</span>
   </p>

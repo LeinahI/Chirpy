@@ -13,7 +13,7 @@ function Topbar() {
           width={28}
           height={28}
         />
-        <p className="text-heading3-bold text-dark-1 max-xs:hideen">Chirpy</p>
+        <p className="text-heading3-bold text-dark-1 max-md:hidden">Chirpy</p>
       </Link>
 
       <div className="flex items-center gap-1">
