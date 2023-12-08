@@ -4,10 +4,3 @@ To add this on Github
 1. git add ./
 2. git commit -m 'Message of your commit'
 3. git push
-
-Add edit-chirp
-page.tsx edit-chirp = done
-EditChirp = done
-ChirpCard = done
-PostChirp = done
-chirp.actions = done

@@ -26,8 +26,8 @@ function DeleteChirps({
 
   const handleClick = async () => {
     await deleteChirp(JSON.parse(chirpId), pathname);
-    if (!parentId || !isComment) {
-     /*  router.push("/"); */
+    if (chirpId && !isComment) {
+      router.push("/");
     }
   };
   return (

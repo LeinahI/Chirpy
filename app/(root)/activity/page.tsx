@@ -2,8 +2,10 @@ import { fetchUser, getActivity } from "@/lib/actions/user.actions";
 import { formatDateWithMeasure, truncateString } from "@/lib/utils";
 import { currentUser } from "@clerk/nextjs";
 import Image from "next/image";
-import Link from "next/link";
+/* import Link from "next/link"; */
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
+const DynamicLink = dynamic(() => import("next/link"), { ssr: false });
 
 async function Page() {
   const user = await currentUser();
@@ -22,7 +24,7 @@ async function Page() {
         {activity.length > 0 ? (
           <>
             {activity.map((activity: any) => (
-              <Link
+              <DynamicLink
                 key={activity.author._id}
                 href={`${
                   (activity.parentId && `/chirp/${activity.parentId}`) ||
@@ -45,22 +47,26 @@ async function Page() {
                     text={activity.text}
                   />
                 </article>
-              </Link>
+              </DynamicLink>
             ))}
           </>
         ) : (
-          <p className="!text-base-regular text-dark-1">No activity existing yet</p>
+          <p className="!text-base-regular text-dark-1">
+            No activity existing yet
+          </p>
         )}
       </section>
     </>
   );
 }
 
-const ActivityComponent = ({ author, createdAt, activityType, text }: any) => ( /* NEW */
+const ActivityComponent = (
+  { author, createdAt, activityType, text }: any /* NEW */
+) => (
   <p className="!text-small-regular text-dark-1">
-    <Link key={author._id} href={`/profile/${author.id}`}>
+    <DynamicLink key={author._id} href={`/profile/${author.id}`}>
       <span className="text-primary-500">{author.name}</span>
-    </Link>{" "}
+    </DynamicLink>{" "}
     <>
       {activityType === "follow" && "followed you"} {/* Done */}
       {activityType === "reaction" && "like your chirp"}
