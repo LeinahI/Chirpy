@@ -1,4 +1,4 @@
-# NEXT.js 13 chirpy
+# NEXT.js 13.5.6 chirpy
 ![Thumbnail](https://github.com/LeinahI/Chirpy/assets/53577436/93522668-b80b-45df-8313-82bb3be6ae35)
 
 [![Leinah](https://custom-icon-badges.demolab.com/badge/made%20by%20-Leinah-556bf2?logo=github&logoColor=white&labelColor=101827)](https://github.com/LeinahI)
@@ -368,7 +368,7 @@ npm run build
 
 The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fladunjexa%2Fnextjs13-threads)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/)
 
 ## 💡 Features
 
@@ -401,4 +401,80 @@ In terms of technical features, Chirpy web application comes with the following 
 - [x] Tailwind CSS
 - [x] Svix Webhook Proxy
 - [x] Vercel Deployment
+
+## 🤳 Screenshots
+
+#### Sign In
+![Screen Shot 2023-12-09 at 16 47 13](https://github.com/LeinahI/Chirpy/assets/53577436/e21c52cb-6fc7-40be-a2d9-4172c43282ff)
+
+#### Sign Up
+![Screen Shot 2023-12-09 at 16 47 43](https://github.com/LeinahI/Chirpy/assets/53577436/c1babf6b-7b45-4ac9-81cb-6db0ac392e87)
+
+#### Onboarding
+![Screen Shot 2023-12-09 at 16 49 46](https://github.com/LeinahI/Chirpy/assets/53577436/0aa1a1ba-e995-46f2-a893-ee5235adbeee)
+
+#### Home
+![Screen Shot 2023-12-09 at 16 51 40](https://github.com/LeinahI/Chirpy/assets/53577436/0b891081-e888-4d93-9dc7-d55424ced3cb)
+
+#### Search
+![Screen Shot 2023-12-09 at 16 52 22](https://github.com/LeinahI/Chirpy/assets/53577436/600a1c9e-789f-4d0f-9f17-fd7553930a0d)
+
+#### Activity
+![Screen Shot 2023-12-09 at 16 52 55](https://github.com/LeinahI/Chirpy/assets/53577436/12dca440-6f8a-455b-a35d-73b0af3cc561)
+
+#### Create Chirp
+![Screen Shot 2023-12-09 at 16 53 17](https://github.com/LeinahI/Chirpy/assets/53577436/5dbcddb4-3089-4917-935d-2d517ef3851b)
+
+#### Circles
+![Screen Shot 2023-12-09 at 16 53 50](https://github.com/LeinahI/Chirpy/assets/53577436/99e10300-8b04-461b-8b4b-4548b9e95556)
+
+#### Profile
+![Screen Shot 2023-12-09 at 16 54 17](https://github.com/LeinahI/Chirpy/assets/53577436/98238753-d604-4741-8096-65f64e42972e)
+![Screen Shot 2023-12-09 at 16 56 32](https://github.com/LeinahI/Chirpy/assets/53577436/c8810761-f594-4755-8162-fa3a3785c819)
+![Screen Shot 2023-12-09 at 16 56 35](https://github.com/LeinahI/Chirpy/assets/53577436/b78458f6-33a5-40c6-a0fa-288682f0cd7a)
+
+
+#### Edit Profile
+![Screen Shot 2023-12-09 at 16 55 36](https://github.com/LeinahI/Chirpy/assets/53577436/fcffc6de-f14f-4276-8df5-9e8e27b2b148)
+
+#### User Profile
+![Screen Shot 2023-12-09 at 16 57 17](https://github.com/LeinahI/Chirpy/assets/53577436/227a27b3-dece-4664-91cd-f84ce51cc8fa)
+
+#### Create Organization/Circle
+![Screen Shot 2023-12-09 at 16 58 20](https://github.com/LeinahI/Chirpy/assets/53577436/59f35206-2f98-47ab-b588-4296b3ace3d0)
+
+#### Circle Profile
+![Screen Shot 2023-12-09 at 16 58 43](https://github.com/LeinahI/Chirpy/assets/53577436/e9b4e15e-b933-4e8b-b2d7-2210ef8a22a3)
+![Screen Shot 2023-12-09 at 16 58 46](https://github.com/LeinahI/Chirpy/assets/53577436/331141a4-e027-4deb-bfc9-4987004b6f83)
+
+#### Chirp Page
+![Screen Shot 2023-12-09 at 16 59 37](https://github.com/LeinahI/Chirpy/assets/53577436/6cae7a16-4b53-4574-91ef-aae7e4fd0257)
+
+#### Chirp Likes Page
+![Screen Shot 2023-12-09 at 17 00 03](https://github.com/LeinahI/Chirpy/assets/53577436/378114e1-7f3a-40fe-98d1-b38e911ee1ac)
+
+## 🐛 Bugs that I fixed
+
+
+## 📋 License
+
+**Threads** is open source software [licensed as MIT](https://opensource.org/license/mit/) and is free to use — See [LICENSE](https://github.com/LeinahI/Chirpy/blob/master/LICENSE) for more details.
+
+
+## 💎 Acknowledgements
+
+The following people assisted me throughout this project and made it possible, for which I am grateful.:
+
+- [Adrian Hajdin - JS Mastery](https://github.com/adrianhajdin)
+- [Liron Abutbul](https://github.com/ladunjexa)
+
+## 📚 References
+
+JavaScript Mastery. (2023, August 4). Build and deploy a full stack MERN Next.js 14 threads app | React, Next JS, TypeScript, MongoDB. Retrieved from https://www.youtube.com/watch?v=O5cmLDVTgAs
+
+
+
+
+
+
 
