@@ -6,6 +6,34 @@
 [![Top Language](https://img.shields.io/github/languages/top/LeinahI/Chirpy?logo=github&logoColor=%23007ACC&label=TypeScript)](https://www.typescriptlang.org/)
 [![deployment](https://img.shields.io/github/deployments/LeinahI/Chirpy/Production?logo=vercel&label=Website)](https://chirpy-orcin.vercel.app/)
 
+## 📖 Table of Contents
+
+<details><summary>Table of Contents</summary>
+
+- [Live Demo](#-live-demo)
+- [Description](#-description)
+- [Purpose](#-purpose)
+- [Application Structure](#-application-structure)
+- [Get Started](#-get-started)
+  - [Prerequisites](#-prerequisites)
+  - [Installation and Run Locally](#-installation-and-run-locally)
+  - [Scripts](#-scripts)
+- [Environment Variables](#-environment-variables)
+- [Deployment](#-deployment)
+  - [Deploy to production (manual)](#-deploy-to-production-manual)
+  - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
+  - [Deploy on Netlify](#-deploy-on-netlify)
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Contributing](#-contributing)
+  - [Bug / Feature Request](#-bug--feature-request)
+- [Acknowledgements](#-acknowledgements)
+- [References](#-references)
+- [Contact Us](#-contact-us)
+- [License](#-license)
+
+</details>
+
 ## 🌐 Live Demo
 Look at the project's live demonstration: [Chirpy web application](https://chirpy-orcin.vercel.app/)
 
@@ -210,33 +238,7 @@ The public directory contains the media used in the application. The assets fold
 
 </details>
 
-## 📖 Table of Contents
 
-<details><summary>Table of Contents</summary>
-
-- [Live Demo](#-live-demo)
-- [Description](#-description)
-- [Purpose](#-purpose)
-- [Purpose](#-application-structure)
-- [Get Started](#-get-started)
-  - [Prerequisites](#-prerequisites)
-  - [Installation and Run Locally](#-installation-and-run-locally)
-  - [Scripts](#-scripts)
-- [Environment Variables](#-environment-variables)
-- [Deployment](#-deployment)
-  - [Deploy to production (manual)](#-deploy-to-production-manual)
-  - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
-  - [Deploy on Netlify](#-deploy-on-netlify)
-- [Features](#-features)
-- [Screenshots](#-screenshots)
-- [Contributing](#-contributing)
-  - [Bug / Feature Request](#-bug--feature-request)
-- [Acknowledgements](#-acknowledgements)
-- [References](#-references)
-- [Contact Us](#-contact-us)
-- [License](#-license)
-
-</details>
 
 
 
