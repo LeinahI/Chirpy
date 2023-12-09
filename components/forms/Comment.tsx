@@ -18,7 +18,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { CommentValidation } from "@/lib/validations/chirp";
 import Image from "next/image";
 import { addCommentToChirp } from "@/lib/actions/chirp.actions";
-//import { createChirp } from "@/lib/actions/chirp.actions";
 
 /* Emoji */
 import { CiFaceSmile } from "react-icons/ci";
