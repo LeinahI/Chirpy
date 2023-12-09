@@ -7,7 +7,6 @@
 [![deployment](https://img.shields.io/github/deployments/LeinahI/Chirpy/Production?logo=vercel&label=Website)](https://chirpy-orcin.vercel.app/)
 
 ## 🌐 Live Demo
-
 Look at the project's live demonstration: [Chirpy web application](https://chirpy-orcin.vercel.app/)
 
 ## 📝 Description
@@ -217,7 +216,8 @@ The public directory contains the media used in the application. The assets fold
 
 - [Live Demo](#-live-demo)
 - [Description](#-description)
-- [Technologies Used](#-technologies-used)
+- [Purpose](#-purpose)
+- [Purpose](#-application-structure)
 - [Get Started](#-get-started)
   - [Prerequisites](#-prerequisites)
   - [Installation and Run Locally](#-installation-and-run-locally)
