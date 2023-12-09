@@ -23,7 +23,6 @@
 - [Deployment](#-deployment)
   - [Deploy to production (manual)](#-deploy-to-production-manual)
   - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
-  - [Deploy on Netlify](#-deploy-on-netlify)
 - [Features](#-features)
 - [Screenshots](#-screenshots)
 - [Acknowledgements](#-acknowledgements)
@@ -278,7 +277,6 @@ In order to install and run this project locally, you would need to have the fol
 Create :bangbang: `.env.local` file and it should be located alongside with .gitignore, next.config.js & etc.
 <br>![image](https://github.com/LeinahI/Chirpy/assets/53577436/a5285cbd-5170-4066-9651-c0efa56a9d22)
 
-
 Note :bangbang: the application uses Clerk for Authentication and User Management, therefore, you need to create Clerk account [here](https://clerk.dev/) and sets the `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` environment variables in `.env.local` file. Also, the different URLs for the Clerk sign-in, sign-up, after sign-in and after sign-up pages.
 
 Note :bangbang: the application uses a MongoDB database, therefore, you need to create a database and connect it to the application, for this, change the `MONGODB_URL` environment variable in `.env.local` file located in `server` folder.
@@ -356,5 +354,51 @@ NEXT_CLERK_WEBHOOK_SECRET=<CLERK_WEBHOOK_SECRET>
 UPLOADTHING_SECRET=<UPLOADTHING_SECRET>
 UPLOADTHING_APP_ID=<UPLOADTHING_APP_ID>
 ```
+## 🚀 Deployment
 
+#### Deploy to production (manual)
+
+You can create an optimized production build with the following command:
+
+```bash
+npm run build
+```
+
+#### Deploy on Vercel (recommended)
+
+The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fladunjexa%2Fnextjs13-threads)
+
+## 💡 Features
+
+Chirpy web application comes with the following features:
+
+- [x] [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) Chirps, Communities and Profiles
+- [x] Like Chirps
+- [x] Multi-level Comment Chirps
+- [x] Follow Profiles
+- [x] Search Profiles and Circles
+- [x] Activity Feed (Likes, Comments, Follows)
+- [x] Explore Feed (Chirps of Followed Profiles)
+- [x] Profile Tabs (Chirps, Followers, Following)
+- [x] Community Tabs (Chirps, Members)
+- [x] Chirp Likes Page (Profiles that liked a Chirp)
+- [x] Post and Comment Emoji via emoji-mart
+
+In terms of technical features, Chirpy web application comes with the following features:
+
+- [x] TypeScripted Codebase with Next.js
+- [x] Authentication with Clerk
+- [x] User Management with Clerk
+- [x] Organization Management with Clerk
+- [x] File Upload with UploadThing
+- [x] Server Side Rendering with Next.js
+- [x] MongoDB Database
+- [x] Mongoose ODM
+- [x] Zod Validation
+- [x] Shadcn Components
+- [x] Tailwind CSS
+- [x] Svix Webhook Proxy
+- [x] Vercel Deployment
 
