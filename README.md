@@ -25,10 +25,10 @@
   - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
 - [Features](#-features)
 - [Screenshots](#-screenshots)
+- [License](#-license)
 - [Acknowledgements](#-acknowledgements)
 - [References](#-references)
-- [Contact Us](#-contact-us)
-- [License](#-license)
+
 
 </details>
 
@@ -453,8 +453,93 @@ In terms of technical features, Chirpy web application comes with the following 
 #### Chirp Likes Page
 ![Screen Shot 2023-12-09 at 17 00 03](https://github.com/LeinahI/Chirpy/assets/53577436/378114e1-7f3a-40fe-98d1-b38e911ee1ac)
 
-## 🐛 Bugs that I fixed
+## 🐛 Errors & Bugs that I fixed from References
 
+1. Not implementing utfs.io on next.config.js
+```
+//Solution
+remotePatterns: [
+      ...
+      ,{
+        protocol: "https",
+        hostname: "utfs.io",
+      },
+    ],
+```
+
+2. Activity Tab = Hydration errors due to interactive content of `<Link>... <Link>...<Link/>...</Link>` this occurence.
+```
+//This error occurs on app/(root)/activity/page.tsx because of href={`/profile/${author.id}`} is undefined
+//Solution
+import dynamic from "next/dynamic";
+const DynamicLink = dynamic(() => import("next/link"), { ssr: false });
+
+// all <Link> tag from next/link should change into DynamicLink
+<DynamicLink
+   key={activity._id}
+   href={`${
+   (activity.parentId && `/chirp/${activity.parentId}`) ||
+   `/profile/${activity.author.id}`
+   }`}>
+...
+<DynamicLink key={author._id} href={`/profile/${author.id}`}>
+   <span className="text-primary-500">{author.name}</span>
+</DynamicLink>
+```
+
+3. Activity Tab = When the same person liked your 2 different post but it only shows a same single link.
+```
+//at user.actions.ts getActivity()
+
+const reactionsData = reactions.map(
+      (reaction: {
+        user: { toString: () => any };
+        _id: any; /* NEW */
+        createdAt: any;
+      }) => {
+        const reactingUser = reactionsUsers.find(
+          (user) => user._id.toString() === reaction.user.toString()
+        );
+
+        if (reactingUser._id.equals(userId)) return null;
+
+        const parentChirp = userChirps.find((chirp) => /* NEW */
+          chirp.reactions.some((r: { equals: (arg0: any) => any }) =>
+            r.equals(reaction._id)
+          )
+        );
+
+        if (!parentChirp) return null; /* NEW */
+
+        return {
+          author: {
+            name: reactingUser.name,
+            username: reactingUser.username,
+            image: reactingUser.image,
+            _id: reactingUser._id,
+            id: reactingUser.id,
+          },
+          createdAt: reaction.createdAt,
+          parentId: parentChirp._id.toString(), /* Modified */
+          activityType: "reaction",
+        };
+      }
+    );
+
+    const replies = await Chirp.find({ /* Modified and reaction to concat follow removed */
+      _id: { $in: childChirpIds },
+      author: { $ne: userId },
+    }).populate({
+      path: "author",
+      model: User,
+      select: "name username image id _id",
+    });
+
+    const activity = [...replies, ...reactionsData, ...followersData]
+      .filter((item) => item !== null)
+      .sort((a, b) => b.createdAt - a.createdAt);
+
+```
 
 ## 📋 License
 
@@ -470,8 +555,8 @@ The following people assisted me throughout this project and made it possible, f
 
 ## 📚 References
 
-JavaScript Mastery. (2023, August 4). Build and deploy a full stack MERN Next.js 14 threads app | React, Next JS, TypeScript, MongoDB. Retrieved from https://www.youtube.com/watch?v=O5cmLDVTgAs
-
+• JavaScript Mastery. (2023, August 4). Build and deploy a full stack MERN Next.js 14 threads app | React, Next JS, TypeScript, MongoDB. Retrieved from https://www.youtube.com/watch?v=O5cmLDVTgAs <br>
+• Ladunjexa. (2023). GitHub - ladunjexa/nextjs13-threads: Threads, Next.js 13 app that skyrocketed to 100 million sign-ups in less than 5 days. Retrieved from https://github.com/ladunjexa/nextjs13-threads
 
 
 
