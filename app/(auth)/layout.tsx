@@ -3,6 +3,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "Chirpy",
@@ -21,6 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={` ${mainFont.className} bg-light-1`}>
+          <SpeedInsights />
           <div className="w-full flex justify-center items-center min-h-screen">
             {children}
           </div>

@@ -7,7 +7,7 @@ import LeftSidebar from "@/components/shared/LeftSidebar";
 import Bottombar from "@/components/shared/Bottombar";
 import { ClerkProvider, currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const mainFont = Inter({ subsets: ["latin"] });
 
@@ -29,6 +29,7 @@ export default async function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${mainFont.className} custom-scrollbar`}>
+          <SpeedInsights />
           <Topbar />
           <main className="flex flex-row">
             <LeftSidebar />
