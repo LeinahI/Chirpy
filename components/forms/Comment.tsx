@@ -97,7 +97,7 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                   className="relative h-[44px] w-[44px] object-cover rounded-full"
                 />
               </FormLabel>
-              <div className="w-full flex items-end relative border border-primary-500 rounded-lg">
+              <div className=" flex w-full items-end relative border border-primary-500 rounded-lg">
                 <FormControl className="border-none bg-transparent">
                   <Input
                     type="text"
@@ -125,6 +125,7 @@ const Comment = ({ chirpId, currentUserImg, currentUserId }: Props) => {
                       emojiButtonSize={28}
                       onEmojiSelect={addEmoji}
                       maxFrequentRows={0}
+                      theme="light"
                     />
                   </div>
                 )}

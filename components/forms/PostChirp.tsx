@@ -128,6 +128,7 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
                       emojiButtonSize={28}
                       onEmojiSelect={addEmoji}
                       maxFrequentRows={0}
+                      theme="light"
                     />
                   </div>
                 )}

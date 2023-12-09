@@ -62,12 +62,13 @@ const ChirpCard = ({
         <div className="flex flex-col items-center">
           {/* Show Profile Icon if not in circle  */}
           {!circle && (
-            <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
+            <Link href={`/profile/${author.id}`}>
               <Image
                 src={author.image}
                 alt="Profile image"
-                fill
-                className="cursor-pointer object-cover rounded-full"
+                height={44}
+                width={44}
+                className="cursor-pointer h-[44px] w-[44px] object-cover rounded-full"
               />
             </Link>
           )}
