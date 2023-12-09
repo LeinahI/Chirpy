@@ -5,6 +5,9 @@ To add this on Github
 2. git commit -m 'Message of your commit'
 3. git push
 
+PROBLEM
+1. when someone ~ liked ur 2 different chirp have same link
+
 add heart-reaction
 page.tsx app\root = DONE CHECKED
 page.tsx app\root\activity = DONE CHECKED

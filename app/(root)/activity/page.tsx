@@ -23,9 +23,9 @@ async function Page() {
       <section className="mt-10 flex flex-col gap-5">
         {activity.length > 0 ? (
           <>
-            {activity.map((activity: any) => (
+            {activity.map((activity) => (
               <DynamicLink
-                key={activity.author._id}
+                key={activity._id}
                 href={`${
                   (activity.parentId && `/chirp/${activity.parentId}`) ||
                   `/profile/${activity.author.id}`
@@ -60,16 +60,15 @@ async function Page() {
   );
 }
 
-const ActivityComponent = (
-  { author, createdAt, activityType, text }: any /* NEW */
-) => (
+const ActivityComponent = ({ author, createdAt, activityType, text }: any) => (
   <p className="!text-small-regular text-dark-1">
     <DynamicLink key={author._id} href={`/profile/${author.id}`}>
       <span className="text-primary-500">{author.name}</span>
     </DynamicLink>{" "}
     <>
-      {activityType === "follow" && "followed you"} {/* Done */}
-      {activityType === "reaction" && "liked your chirp"}{/* NEW */}
+      {activityType === "follow" && "followed you"} 
+      {activityType === "reaction" && "liked your chirp"}
+      {/* NEW */}
       {text && `replied to your chirp: "${truncateString(text, 15)}"`}
     </>{" "}
     <span className="text-gray-1">~ {formatDateWithMeasure(createdAt)}</span>

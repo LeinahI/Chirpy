@@ -190,28 +190,107 @@ const ChirpCard = ({
             </div>
             {/* Line 118 sa ThreadCard */}
             <div className="flex flex-row gap-2">
-              {isComment && (
+              {!isComment && (
                 <>
                   {comments.length > 0 && (
-                    <Link href={`/chirp/${id}`}>
-                      <p className="mt-1 text-subtle-medium text-gray-1">
-                        {comments.length}{" "}
-                        {comments.length > 1 ? "replies" : "reply"}
-                      </p>
-                    </Link>
-                  )}
+                    <div className="ml-1 flex items-center gap-2">
+                      {comments.slice(0, 2).map((comment, index) => (
+                        <Image
+                          key={index}
+                          src={comment.author.image}
+                          alt={`user_${index}`}
+                          width={24}
+                          height={24}
+                          className={`${
+                            index !== 0 && "-ml-5"
+                          } rounded-full h-[24px] w-[24px] object-cover`}
+                        />
+                      ))}
 
-                  {comments.length > 0 && reactions.length > 0 && (
-                    <p className="mt-1 text-subtle-medium text-gray-1">•</p>
+                      <Link href={`/chirp/${id}`}>
+                        <p className="mt-1 text-subtle-medium text-gray-1">
+                          {comments.length}{" "}
+                          {comments.length > 1 ? "replies" : "reply"}
+                        </p>
+                      </Link>
+                    </div>
                   )}
 
                   {reactions.length > 0 && (
-                    <Link href={`/chirp/reactions/${id}`}>
-                      <p className="mt-1 text-subtle-medium text-gray-1">
-                        {reactions.length}{" "}
-                        {reactions.length > 1 ? "likes" : "like"}
-                      </p>
-                    </Link>
+                    <div className="ml-1 flex items-center gap-2">
+                      {reactions.slice(0, 2).map((reaction, index) => (
+                        <Image
+                          key={index}
+                          src={reaction.image}
+                          alt={`user_${index}`}
+                          width={24}
+                          height={24}
+                          className={`${
+                            index !== 0 && "-ml-5"
+                          } rounded-full h-[24px] w-[24px] object-cover`}
+                        />
+                      ))}
+
+                      <Link href={`/chirp/reactions/${id}`}>
+                        <p className="mt-1 text-subtle-medium text-gray-1">
+                          {reactions.length}{" "}
+                          {reactions.length > 1 ? "likes" : "like"}
+                        </p>
+                      </Link>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* show reply and like on comment */}
+              {isComment && (
+                <>
+                  {comments.length > 0 && (
+                    <div className="ml-1 flex items-center gap-2">
+                      {comments.slice(0, 2).map((comment, index) => (
+                        <Image
+                          key={index}
+                          src={comment.author.image}
+                          alt={`user_${index}`}
+                          width={24}
+                          height={24}
+                          className={`${
+                            index !== 0 && "-ml-5"
+                          } rounded-full h-[24px] w-[24px] object-cover`}
+                        />
+                      ))}
+
+                      <Link href={`/chirp/${id}`}>
+                        <p className="mt-1 text-subtle-medium text-gray-1">
+                          {comments.length}{" "}
+                          {comments.length > 1 ? "replies" : "reply"}
+                        </p>
+                      </Link>
+                    </div>
+                  )}
+
+                  {reactions.length > 0 && (
+                    <div className="ml-1 flex items-center gap-2">
+                      {reactions.slice(0, 2).map((reaction, index) => (
+                        <Image
+                          key={index}
+                          src={reaction.image}
+                          alt={`user_${index}`}
+                          width={24}
+                          height={24}
+                          className={`${
+                            index !== 0 && "-ml-5"
+                          } rounded-full h-[24px] w-[24px] object-cover`}
+                        />
+                      ))}
+
+                      <Link href={`/chirp/reactions/${id}`}>
+                        <p className="mt-1 text-subtle-medium text-gray-1">
+                          {reactions.length}{" "}
+                          {reactions.length > 1 ? "likes" : "like"}
+                        </p>
+                      </Link>
+                    </div>
                   )}
                 </>
               )}
@@ -237,7 +316,7 @@ const ChirpCard = ({
     </div>
 
     {/* Line 164 sa ThreadCard */}
-    <div className="flex flex-row gap-2">
+    {/* <div className="flex flex-row gap-2">
       {reactions.length > 0 && (
         <div className="ml-1 flex items-center gap-2">
           {reactions.slice(0, 2).map((reaction, index) => (
@@ -260,7 +339,7 @@ const ChirpCard = ({
           </Link>
         </div>
       )}
-    </div>
+    </div> */}
   </article>
 );
 
