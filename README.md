@@ -1,4 +1,4 @@
-# NEXT.js 13.5.6 chirpy
+# NEXT.js 13.5.6 Chirpy
 ![Thumbnail](https://github.com/LeinahI/Chirpy/assets/53577436/93522668-b80b-45df-8313-82bb3be6ae35)
 
 [![Leinah](https://custom-icon-badges.demolab.com/badge/made%20by%20-Leinah-556bf2?logo=github&logoColor=white&labelColor=101827)](https://github.com/LeinahI)
