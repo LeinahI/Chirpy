@@ -544,7 +544,7 @@ const reactionsData = reactions.map(
 
 ## 📋 License
 
-**Threads** is open source software [licensed as MIT](https://opensource.org/license/mit/) and is free to use — See [LICENSE](https://github.com/LeinahI/Chirpy/blob/master/LICENSE) for more details.
+**Chirpy** is open source software [licensed as MIT](https://opensource.org/license/mit/) and is free to use — See [LICENSE](https://github.com/LeinahI/Chirpy/blob/master/LICENSE) for more details.
 
 
 ## 💎 Acknowledgements
