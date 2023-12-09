@@ -14,6 +14,7 @@
 - [Description](#-description)
 - [Purpose](#-purpose)
 - [Application Structure](#-application-structure)
+- [Technologies Used](#-technologies-used)
 - [Get Started](#-get-started)
   - [Prerequisites](#-prerequisites)
   - [Installation and Run Locally](#-installation-and-run-locally)
@@ -38,7 +39,7 @@
 Look at the project's live demonstration: [Chirpy web application](https://chirpy-orcin.vercel.app/)
 
 ## 📝 Description
-Users can share their thoughts with other users on the social media platform Chirpy by using this application. Chirpy is a server-side rendering, full-stack web application written in TypeScript and Next.js 13. It makes use of Clerk as the provider of authentication and MongoDB as the database. It uploads pictures to the cloud via UploadThing as well. Tailwind CSS and Shadcn components are utilized for styling the application.
+Users can share their thoughts with other users on the social media platform named Chirpy by using this application. Chirpy is a server-side rendering, full-stack web application written in TypeScript and Next.js 13. It makes use of Clerk as the provider of authentication and MongoDB as the database. It uploads pictures to the cloud via UploadThing as well. Tailwind CSS and Shadcn components are utilized for styling the application.
 
 ## 🏁 Purpose
 Our objective is to develop "Chirpy," an application that addresses accessibility concerns and goes above and beyond to make sure that all users, regardless of their abilities or impairments, feel not only accommodated but also genuinely welcomed. We are committed to developing a platform where inclusion is the norm and understand how crucial it is to make it user-friendly for everyone.
@@ -238,10 +239,26 @@ The public directory contains the media used in the application. The assets fold
 
 </details>
 
+## ✨ Technologies Used
 
+<details><summary><b>Chirpy</b> is built using the following technologies:</summary>
 
+- [TypeScript](https://www.typescriptlang.org/): TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.
+- [Next.js 13](https://nextjs.org/): Next.js is a React framework for building server-side rendered and statically generated web applications.
+- [Tailwind CSS](https://tailwindcss.com/): Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces.
+- [Shadcn](https://shadcn.com/): Shadcn is a collection of Tailwind CSS components.
+- [Clerk](https://clerk.dev/): Clerk is a developer-first authentication API that handles all the logic for user sign up, sign in, and more.
+- [UploadThing](https://uploadthingy.com/): UploadThing is a simple, fast, and reliable file uploader for your website.
+- [MongoDB](https://www.mongodb.com/): MongoDB is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.
+- [Mongoose](https://mongoosejs.com/): Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+- [Zod](https://zod.dev/): Zod is a TypeScript-first schema declaration and validation library.
+- [svix](https://svix.com/): Svix is a webhook proxy that allows you to receive webhooks locally.
+- [emoji-mart](https://missiveapp.com/open/emoji-mart): Emoji Mart is a customizable. emoji picker HTML component for the web.
+- [Vercel](https://vercel.com/): Vercel is a cloud platform for frontend developers, providing the frameworks, workflows, and infrastructure to build a faster, more personalized Web.
 
+</details><br/>
 
+[![Technologies Used](https://skillicons.dev/icons?i=nextjs,ts,mongodb,tailwind,vercel)](https://skillicons.dev)
 
 
 
