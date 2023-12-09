@@ -25,6 +25,7 @@
   - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
 - [Features](#-features)
 - [Screenshots](#-screenshots)
+- [Errors & Bugs that I fixed from References](#errors-&-bugs-that-i-fixed-from-references)
 - [License](#-license)
 - [Acknowledgements](#-acknowledgements)
 - [References](#-references)
