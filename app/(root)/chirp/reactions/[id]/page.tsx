@@ -71,7 +71,7 @@ async function page({ params }: { params: { id: string } }) {
               <div className="search-card mt-5">
                 <UserCard
                   key={reaction._id}
-                  id={reaction._id}
+                  id={reaction.id}
                   name={reaction.name}
                   username={reaction.username}
                   imgUrl={reaction.image}
