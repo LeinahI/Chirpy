@@ -5,6 +5,7 @@
 [![License](https://img.shields.io/github/license/LeinahI/Chirpy?color=dddddd&labelColor=000000)](https://github.com/LeinahI/Chirpy/blob/master/LICENSE)
 [![Top Language](https://img.shields.io/github/languages/top/LeinahI/Chirpy?logo=github&logoColor=%23007ACC&label=TypeScript)](https://www.typescriptlang.org/)
 [![deployment](https://img.shields.io/github/deployments/LeinahI/Chirpy/Production?logo=vercel&label=Website)](https://chirpy-orcin.vercel.app/)
+[![Known Vulnerabilities](https://snyk.io/test/github/LeinahI/Chirpy/badge.svg)](https://snyk.io/test/github/LeinahI/Chirpy)
 
 ## 📖 Table of Contents
 
@@ -17,15 +18,15 @@
 - [Technologies Used](#-technologies-used)
 - [Get Started](#-get-started)
   - [Prerequisites](#-prerequisites)
-  - [Installation and Run Locally](#-installation-and-run-locally)
+  - [Installation and Run Locally](#%EF%B8%8F-installation-and-run-locally)
   - [Scripts](#-scripts)
 - [Environment Variables](#-environment-variables)
 - [Deployment](#-deployment)
-  - [Deploy to production (manual)](#-deploy-to-production-manual)
-  - [Deploy on Vercel (recommended)](#-deploy-on-vercel-recommended)
+  - [Deploy to production (manual)](#deploy-to-production-manual)
+  - [Deploy on Vercel (recommended)](#deploy-on-vercel-recommended)
 - [Features](#-features)
 - [Screenshots](#-screenshots)
-- [Errors & Bugs that I fixed from References](#errors-&-bugs-that-i-fixed-from-references)
+- [Errors & Bugs that I fixed from References](#-errors--bugs-that-i-fixed-from-references)
 - [License](#-license)
 - [Acknowledgements](#-acknowledgements)
 - [References](#-references)
