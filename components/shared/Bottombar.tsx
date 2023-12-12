@@ -33,7 +33,7 @@ function Bottombar() {
                   height={24}
                 />
 
-                <p className={`${isActive ? "text-accent-500" : "text-gray-1"} text-subtle-medium max-sm:hidden`}>
+                <p className={`${isActive ? "text-primary-500" : "text-gray-1"} text-subtle-medium max-sm:hidden`}>
                   {link.label.split(/\s+/)[0]}
                 </p>
               </Link>

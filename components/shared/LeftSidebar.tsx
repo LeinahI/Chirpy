@@ -38,7 +38,7 @@ function LeftSidebar() {
                   height={24}
                 />
 
-                <p className={`${isActive ? "text-accent-500" : "text-gray-1"}`}>
+                <p className={`${isActive ? "text-primary-500" : "text-gray-1"}`}>
                   {link.label}
                 </p>
               </div>
