@@ -41,6 +41,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const { startUpload } = useUploadThing("media");
   const router = useRouter();
   const pathname = usePathname();
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); /* NEW */
 
   const form = useForm({
     resolver: zodResolver(UserValidation),
@@ -83,6 +84,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
 
   /* onsubmit func */
   const onSubmit = async (values: z.infer<typeof UserValidation>) => {
+    setIsButtonDisabled(true); // NEW
     try {
       const blob = values.profile_photo;
 
@@ -115,7 +117,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
       if (isErrorWithMessage(error)) {
         // Handle the specific error
         // You can display an error message to the user
-        form.setError("username", { message: "This username is already taken" });
+        form.setError("username", {
+          message: "This username is already taken",
+        });
       } else {
         // Handle other errors
         console.error("Error updating user:", error);
@@ -233,8 +237,12 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         />
 
         {/* Btn */}
-        <Button type="submit" className="bg-primary-500 hover:bg-secondary-500">
-          Submit
+        <Button
+          type="submit"
+          className="bg-primary-500 hover:bg-secondary-500"
+          disabled={isButtonDisabled}
+        >
+          {isButtonDisabled ? <>Submitting...</> : <>Submit</>}
         </Button>
       </form>
     </Form>

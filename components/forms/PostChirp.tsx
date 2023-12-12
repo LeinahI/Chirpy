@@ -37,6 +37,7 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
   const pathname = usePathname();
   const { organization } = useOrganization();
   const emojiPickerRef = useRef<HTMLDivElement | null>(null); // Explicitly provide the type
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false); /* NEW */
 
   useEffect(() => {
     const handleOutsideClick = (event: { target: any }) => {
@@ -64,6 +65,8 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
   });
 
   const onSubmit = async (values: z.infer<typeof ChirpValidation>) => {
+    setIsButtonDisabled(true); // NEW
+
     if (chirpId && chirpText) {
       await editChirp({
         chirpId,
@@ -81,6 +84,7 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
 
     router.push("/");
   };
+
   /* Add emoji */
   const [showEmoji, setShowEmoji] = useState(false);
   const addEmoji = (e: { unified: string }) => {
@@ -138,8 +142,16 @@ function PostChirp({ userId, chirpId, chirpText }: Props) {
           )}
         />
 
-        <Button type="submit" className="bg-primary-500 hover:bg-secondary-500">
-          {chirpId ? "Edit" : "Create"} Chirp
+        <Button
+          type="submit"
+          className="bg-primary-500 hover:bg-secondary-500"
+          disabled={isButtonDisabled}
+        > {/* NEW */}
+          {isButtonDisabled ? (
+            <>{chirpId ? "Editing" : "Creating"} Chirp...</>
+          ) : (
+            <>{chirpId ? "Edit" : "Create"} Chirp</>
+          )}
         </Button>
       </form>
     </Form>
