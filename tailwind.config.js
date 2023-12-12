@@ -176,7 +176,6 @@ module.exports = {
         "primary-500": "#F2B705",
         "secondary-500": "#F29F05",
         "accent-500": "#F28705",
-        blue: "#0095F6",
         "navbar-menu": "rgba(16, 16, 18, 0.6)",
         "dark-1": "#303030" /* Text */,
         "dark-2": "#7878A3",

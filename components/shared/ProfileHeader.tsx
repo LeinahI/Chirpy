@@ -46,7 +46,7 @@ const ProfileHeader = ({
             <>
               {accountId === authUserId ? (
                 <Link href="/profile/edit">
-                  <div className="flex cursor-pointer gap-3 rounded-lg bg-primary-500 px-4 py-2">
+                  <div className="flex cursor-pointer gap-3 rounded-lg bg-primary-500 hover:bg-secondary-500 px-4 py-2">
                     <Image
                       src="/assets/edit.svg"
                       alt="logout"
