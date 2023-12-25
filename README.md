@@ -152,38 +152,11 @@ chirpy
 ├─ postcss.config.js
 ├─ public
 │  ├─ assets
-│  │  ├─ community.svg
-│  │  ├─ create.svg
-│  │  ├─ delete.svg
-│  │  ├─ edit-yl.svg
-│  │  ├─ edit.svg
-│  │  ├─ follow-wt.svg
-│  │  ├─ following-svg.svg
-│  │  ├─ following-wt.svg
-│  │  ├─ heart-filled.svg
-│  │  ├─ heart-stroke.svg
-│  │  ├─ home.svg
-│  │  ├─ logout.svg
-│  │  ├─ Logo_Chirpy.svg
-│  │  ├─ members-wt.svg
-│  │  ├─ members.svg
-│  │  ├─ more.svg
-│  │  ├─ profile.svg
-│  │  ├─ reply-wt.svg
-│  │  ├─ reply.svg
-│  │  ├─ repost.svg
-│  │  ├─ request.svg
-│  │  ├─ search-gray.svg
-│  │  ├─ search.svg
-│  │  ├─ share.svg
-│  │  ├─ tag.svg
-│  │  ├─ unfollow-wt.svg
 │  │  └─ user.svg
 │  ├─ next.svg
 │  └─ vercel.svg
 ├─ README.md
 ├─ tailwind.config.js
-├─ ts.txt
 └─ tsconfig.json
 
 ```
