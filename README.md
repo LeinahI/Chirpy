@@ -3,7 +3,7 @@
 
 [![Leinah](https://custom-icon-badges.demolab.com/badge/made%20by%20-Leinah-556bf2?logo=github&logoColor=white&labelColor=101827)](https://github.com/LeinahI)
 [![License](https://img.shields.io/github/license/LeinahI/Chirpy?color=dddddd&labelColor=000000)](https://github.com/LeinahI/Chirpy/blob/master/LICENSE)
-[![Top Language](https://img.shields.io/github/languages/top/LeinahI/Chirpy?logo=github&logoColor=%23007ACC&label=TypeScript)](https://www.typescriptlang.org/)
+[![Top Language](https://img.shields.io/github/languages/top/LeinahI/Chirpy?logo=typescript&logoColor=%23007ACC&label=TypeScript)](https://www.typescriptlang.org/)
 [![deployment](https://img.shields.io/github/deployments/LeinahI/Chirpy/Production?logo=vercel&label=Website)](https://chirpy-orcin.vercel.app/)
 [![Known Vulnerabilities](https://snyk.io/test/github/LeinahI/Chirpy/badge.svg)](https://snyk.io/test/github/LeinahI/Chirpy)
 
